@@ -1,0 +1,84 @@
+// ------------  Paquete e importaciones ------------
+package analizador;
+
+import java_cup.runtime.*;
+
+
+//------> Codigo para el parser
+//------> Declaracion de variables, funciones y funciones de error
+
+parser code 
+{:
+    public static String resultado = ""; 
+
+    public void syntax_error(Symbol s)
+    {
+            System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {
+            System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion." );
+    }
+
+:}
+
+
+//------> Codigo para las acciones gramaticales (no tocar)
+action code
+{:  :}
+
+
+//------> Declaración de terminales
+terminal String ENTERO;
+terminal String NUMERODECIMAL;
+terminal String PROGRAM, END_PROGRAM;
+terminal String CONSOLE, PRINT, END;
+terminal String SIGNOINTERRO, LETRAS;
+terminal String DOSPUNTOS, DOBLEDOSPUNTOS;
+terminal String COMA, PUNTOYCOMA, IGUAL;
+terminal String POR;
+terminal String MAS;
+terminal String PARENTESIS_A, PARENTESIS_C;
+terminal String MENOR, MAYOR;
+
+
+
+
+//------> Declaración de no terminales
+non terminal inicio;
+non terminal imprimir_consola;
+non terminal lista_instrucciones;
+non terminal dato_numero;
+non terminal comentario_linea;
+non terminal declaraciones;
+
+
+//------> Definir Simbolo Inicial
+start with inicio; 
+
+
+// ------------>  Producciones  <------------
+
+inicio ::= PROGRAM lista_instrucciones END_PROGRAM
+;
+
+
+lista_instrucciones ::=   lista_instrucciones declaraciones
+        | declaraciones
+;
+
+declaraciones ::= imprimir_consola 
+        | comentario_linea
+;
+
+imprimir_consola ::= CONSOLE DOBLEDOSPUNTOS PRINT IGUAL dato_numero END PUNTOYCOMA 
+;
+
+dato_numero ::= NUMERODECIMAL:val                                      {: System.out.println(val.toString()); :}
+        | ENTERO:val                                                   {: System.out.println(val.toString()); :}
+;
+
+comentario_linea ::= SIGNOINTERRO                                       
+;
+
