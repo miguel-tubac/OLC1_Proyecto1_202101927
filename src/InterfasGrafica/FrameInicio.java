@@ -5,16 +5,27 @@
 package InterfasGrafica;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -25,9 +36,13 @@ public class FrameInicio extends javax.swing.JFrame {
     /**
      * Creates new form FrameInicio
      */
+    private File archivoActual;
+    
     public FrameInicio() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+        jTextArea1.setEditable(false);
+        jTextArea1.setEnabled(false);
         
         //inicio
 
@@ -61,6 +76,9 @@ public class FrameInicio extends javax.swing.JFrame {
             }
         });
         //Fin
+        
+
+        
     }
 
     /**
@@ -102,17 +120,12 @@ public class FrameInicio extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1021, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap(710, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,12 +142,27 @@ public class FrameInicio extends javax.swing.JFrame {
         jMenu1.setText("Archivo");
 
         jMenuItem1.setText("Nuevo Archivo");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Abrir Archivo");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuItem3.setText("Guardar");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
@@ -147,6 +175,15 @@ public class FrameInicio extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu2.setText("Ejecutar");
+        jMenu2.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu2MenuSelected(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Reportes");
@@ -169,6 +206,219 @@ public class FrameInicio extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenu2MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu2MenuSelected
+        // Menu ejecutar:
+         
+        // Obtén el índice de la pestaña seleccionada
+        int selectedIndex = jTabbedPane1.getSelectedIndex();
+
+        // Solo procede si hay una pestaña seleccionada
+        if (selectedIndex != -1) {
+            // Obtén el componente contenido en la pestaña seleccionada
+            Component selectedComponent = jTabbedPane1.getComponentAt(selectedIndex);
+
+            // Verifica si el componente es un JPanel
+            if (selectedComponent instanceof JPanel) {
+                // Recorre los componentes del panel para encontrar el JTextArea
+                for (Component component : ((JPanel) selectedComponent).getComponents()) {
+                    if (component instanceof JScrollPane) {
+                        JScrollPane scrollPane = (JScrollPane) component;
+                        Component viewportComponent = scrollPane.getViewport().getView();
+                        if (viewportComponent instanceof JTextArea) {
+                            JTextArea textArea = (JTextArea) viewportComponent;
+                            String texto = textArea.getText();
+                            // Haz lo que necesites con el texto (por ejemplo, imprimirlo en la consola)
+                            System.out.println("Texto en la pestaña " + selectedIndex + ": " + texto);
+                        }
+                    }
+                }
+            }
+        }
+        //fin 2
+    }//GEN-LAST:event_jMenu2MenuSelected
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // Abrir Achivo:
+        String contenidoArchivo = abrirArchivo();
+        if (contenidoArchivo != null) {
+                //Cargar el archivo al area de texto:
+                // Obtén el índice de la pestaña seleccionada
+                int selectedIndex = jTabbedPane1.getSelectedIndex();
+
+                // Solo procede si hay una pestaña seleccionada
+                if (selectedIndex != -1) {
+                    // Obtén el componente contenido en la pestaña seleccionada
+                    Component selectedComponent = jTabbedPane1.getComponentAt(selectedIndex);
+
+                    // Verifica si el componente es un JPanel
+                    if (selectedComponent instanceof JPanel) {
+                        // Recorre los componentes del panel para encontrar el JTextArea
+                        for (Component component : ((JPanel) selectedComponent).getComponents()) {
+                            if (component instanceof JScrollPane) {
+                                JScrollPane scrollPane = (JScrollPane) component;
+                                Component viewportComponent = scrollPane.getViewport().getView();
+                                if (viewportComponent instanceof JTextArea) {
+                                    JTextArea textArea = (JTextArea) viewportComponent;
+                                    textArea.setText(contenidoArchivo);//Se ingresa el texto
+                                }
+                            }
+                        }
+                    }
+                }
+                //fin 
+            //System.out.println("Contenido del archivo:\n" + contenidoArchivo);
+        } else {
+            System.out.println("No se seleccionó ningún archivo.");
+        }
+        
+ 
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // Nuevo Archivo:
+        // Obtén el índice de la pestaña seleccionada
+        int selectedIndex = jTabbedPane1.getSelectedIndex();
+
+        // Solo procede si hay una pestaña seleccionada
+        if (selectedIndex != -1) {
+            // Obtén el componente contenido en la pestaña seleccionada
+            Component selectedComponent = jTabbedPane1.getComponentAt(selectedIndex);
+
+            // Verifica si el componente es un JPanel
+            if (selectedComponent instanceof JPanel) {
+                // Recorre los componentes del panel para encontrar el JTextArea
+                for (Component component : ((JPanel) selectedComponent).getComponents()) {
+                    if (component instanceof JScrollPane) {
+                        JScrollPane scrollPane = (JScrollPane) component;
+                        Component viewportComponent = scrollPane.getViewport().getView();
+                        if (viewportComponent instanceof JTextArea) {
+                            JTextArea textArea = (JTextArea) viewportComponent;
+                            guardarTextoEnArchivoDF(textArea);//Se guarda el archivo con el texto seleccionado
+                            
+                        }
+                    }
+                }
+            }
+        }
+        //fin
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // Guardar:
+        // Obtén el índice de la pestaña seleccionada
+        int selectedIndex = jTabbedPane1.getSelectedIndex();
+
+        // Solo procede si hay una pestaña seleccionada
+        if (selectedIndex != -1) {
+            // Obtén el componente contenido en la pestaña seleccionada
+            Component selectedComponent = jTabbedPane1.getComponentAt(selectedIndex);
+
+            // Verifica si el componente es un JPanel
+            if (selectedComponent instanceof JPanel) {
+                // Recorre los componentes del panel para encontrar el JTextArea
+                for (Component component : ((JPanel) selectedComponent).getComponents()) {
+                    if (component instanceof JScrollPane) {
+                        JScrollPane scrollPane = (JScrollPane) component;
+                        Component viewportComponent = scrollPane.getViewport().getView();
+                        if (viewportComponent instanceof JTextArea) {
+                            JTextArea textArea = (JTextArea) viewportComponent;
+                            guardarCambiosEnArchivo(textArea);
+                            //guardarTextoEnArchivoDF(textArea);//Se guarda el archivo con el texto seleccionado 
+                        }
+                    }
+                }
+            }
+        }
+        //fin
+        
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    
+    //metodo para abrir un archivo:
+    public String abrirArchivo() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Selecciona un archivo .df");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos .df", "df"));
+
+        int seleccion = fileChooser.showOpenDialog(null);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File archivoSeleccionado = fileChooser.getSelectedFile();
+            try {
+                StringBuilder contenido = new StringBuilder();
+                BufferedReader lector = new BufferedReader(new FileReader(archivoSeleccionado));
+                String linea;
+                while ((linea = lector.readLine()) != null) {
+                    contenido.append(linea).append("\n");
+                }
+                lector.close();
+                return contenido.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+    
+    //metodo para "Nuevo Archivo":
+    public void guardarTextoEnArchivoDF(JTextArea textArea) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar como archivo .df");
+        
+        // Configuración para sugerir un nombre de archivo predeterminado
+        fileChooser.setSelectedFile(new File("miArchivo.df"));
+        
+        int userSelection = fileChooser.showSaveDialog(null);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File archivoParaGuardar = fileChooser.getSelectedFile();
+            
+            // Asegura que el archivo tenga la extensión .df
+            if (!archivoParaGuardar.getPath().toLowerCase().endsWith(".df")) {
+                archivoParaGuardar = new File(archivoParaGuardar.getPath() + ".df");
+            }
+
+            try (FileWriter fileWriter = new FileWriter(archivoParaGuardar)) {
+                fileWriter.write(textArea.getText());
+                JOptionPane.showMessageDialog(null, "Archivo guardado exitosamente: " + archivoParaGuardar.getAbsolutePath());
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Ocurrió un error al guardar el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    //metodo para "Guardar":  
+    public static void guardarCambiosEnArchivo(JTextArea textArea) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar como"); // Título del diálogo
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        // Filtra solo archivos con extensión .df
+        fileChooser.addChoosableFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Archivos DF (*.df)", "df"));
+
+        int userSelection = fileChooser.showSaveDialog(null);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            // Asegura que el archivo tenga la extensión .df
+            if (!fileToSave.getAbsolutePath().endsWith(".df")) {
+                fileToSave = new File(fileToSave + ".df");
+            }
+
+            try (FileWriter fileWriter = new FileWriter(fileToSave, false)) { // false para sobrescribir
+                fileWriter.write(textArea.getText());
+                JOptionPane.showMessageDialog(null, "Cambios guardados exitosamente en: " + fileToSave.getAbsolutePath());
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Ocurrió un error al guardar los cambios.", "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Guardado cancelado por el usuario.", "Guardado Cancelado", JOptionPane.WARNING_MESSAGE);
+        }
+    }  
+    
+    
+    
     /**
      * @param args the command line arguments
      */
