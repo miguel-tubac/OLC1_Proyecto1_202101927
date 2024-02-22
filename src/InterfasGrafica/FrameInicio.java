@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -26,6 +27,7 @@ import javax.swing.JTextPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import static proyecto_1.Proyecto_1.analizar;
 
 /**
  *
@@ -36,18 +38,19 @@ public class FrameInicio extends javax.swing.JFrame {
     /**
      * Creates new form FrameInicio
      */
-    private File archivoActual;
+    
+    public String nombreArchivo = "";
     
     public FrameInicio() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         jTextArea1.setEditable(false);
-        jTextArea1.setEnabled(false);
+        //jTextArea1.setEnabled(false);
         
         //inicio
 
         ImageIcon icon = new ImageIcon(getClass().getResource("add.png")); // Icono de pestaña
-        jTabbedPane1.insertTab("", icon, null, "Nueva ronda", 0); // Inserta una pestaña por defecto para agregar las demás pestañas
+        jTabbedPane1.insertTab("", icon, null, "Nueva pestaña", 0); // Inserta una pestaña por defecto para agregar las demás pestañas
         jTabbedPane1.getModel().clearSelection(); // Deselecciona las pestañas (por estética)
 
         jTabbedPane1.addMouseListener(new MouseAdapter() { // Se agrega el evento
@@ -69,7 +72,7 @@ public class FrameInicio extends javax.swing.JFrame {
 
                     
                     
-                    jTabbedPane1.insertTab("Ronda " + tab, null, pane, "Ronda " + tab, tab); // Inserta una nueva pestaña llamada Ronda <tab>, donde <tab> es el número de pestaña.
+                    jTabbedPane1.insertTab("Pestaña " + tab, null, pane, "Pestaña " + tab, tab); // Inserta una nueva pestaña llamada Ronda <tab>, donde <tab> es el número de pestaña.
                     jTabbedPane1.setSelectedIndex(tab); // Selecciona la nueva pestaña creada
                 }
 
@@ -170,6 +173,11 @@ public class FrameInicio extends javax.swing.JFrame {
         jMenu4.setText("Pestañas");
 
         jMenuItem4.setText("Eliminar Pestaña");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem4);
 
         jMenuBar1.add(jMenu4);
@@ -207,8 +215,11 @@ public class FrameInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenu2MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu2MenuSelected
-        // Menu ejecutar:
-         
+        // Ejecutar:
+        //Almacena el texto de la Pestaña seleccionada
+        String texto = "";
+        boolean validacion = false;
+        
         // Obtén el índice de la pestaña seleccionada
         int selectedIndex = jTabbedPane1.getSelectedIndex();
 
@@ -226,15 +237,54 @@ public class FrameInicio extends javax.swing.JFrame {
                         Component viewportComponent = scrollPane.getViewport().getView();
                         if (viewportComponent instanceof JTextArea) {
                             JTextArea textArea = (JTextArea) viewportComponent;
-                            String texto = textArea.getText();
+                            texto = textArea.getText();
+                            validacion = true;
                             // Haz lo que necesites con el texto (por ejemplo, imprimirlo en la consola)
-                            System.out.println("Texto en la pestaña " + selectedIndex + ": " + texto);
+                            //System.out.println("Texto en la pestaña " + selectedIndex + ": " + texto);
                         }
                     }
                 }
             }
         }
-        //fin 2
+        //Fin de pestaña que almacena el texto
+        
+        //Analisis del texto ingresado
+            //Ruta en donde se enceuntra nuestra clase principal Main
+            // es:  src/proyecto_1/Main.java
+        if (validacion){
+            FuncionTokens.TextoConsola.consola = "";//Reinicia el texto ingresado a la consola
+            //ejemplo de utilizacion de la funcion analizadores
+            // primer atributo: ruta donde se encuentran los archivos flex y cup
+            //Segundo paramentro el nombre del jflex al igual que el tercer parametro
+            //Comente la llamada a la funcion ya que solo se debe de ejecutar una ves, para que genere los archivos .java en 
+            //el paquete analizador
+
+            //analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");//-------------------------------------------------------------
+
+            //Llamada a la funcion analizar:
+            /*String entrada = ("""
+                                    PROGRAM
+                                          !
+                                          console::print = 34 end; 
+                                          console::print = 25 end;
+                                          console::print = 25.4 end;
+                                          !
+                                    END PROGRAM
+                              """);*/
+            analizar(texto); //-------------------------------------------------------------------------------
+            String consola2 = FuncionTokens.TextoConsola.consola;
+            jTextArea1.setText(consola2);
+
+            //FuncionTokens.FuncionDeTokens.listaTokens.add("!"); esto se coloca en Lexer.jflex
+            //Con este se recorre la lista de Tokens
+            //Se deve de generar un nuevo objeto en el cual se colocque la fila, columna lexema... 
+            //y eso se debe de guardar en la listaTokens
+            FuncionTokens.FuncionDeTokens.listaTokens.forEach((elemento)-> {
+
+               // System.out.println(elemento.toString());
+            }); 
+        }
+        
     }//GEN-LAST:event_jMenu2MenuSelected
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -260,13 +310,12 @@ public class FrameInicio extends javax.swing.JFrame {
                                 if (viewportComponent instanceof JTextArea) {
                                     JTextArea textArea = (JTextArea) viewportComponent;
                                     textArea.setText(contenidoArchivo);//Se ingresa el texto
+                                    jTabbedPane1.setTitleAt(selectedIndex, nombreArchivo);//Se establece el nombre de la pestaña
                                 }
                             }
                         }
                     }
                 }
-                //fin 
-            //System.out.println("Contenido del archivo:\n" + contenidoArchivo);
         } else {
             System.out.println("No se seleccionó ningún archivo.");
         }
@@ -333,6 +382,48 @@ public class FrameInicio extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // Eliminar Ultima Pestaña:
+        int tabCount = jTabbedPane1.getTabCount();
+        if (tabCount > 0) {
+            int selectedTabIndex = jTabbedPane1.getSelectedIndex();
+            if (selectedTabIndex !=0) { // Si se hizo clic en la última pestaña  selectedTabIndex == tabCount - 1 && 
+                jTabbedPane1.remove(selectedTabIndex); // Elimina la última pestaña
+            }
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    //Generador de Analizadores, la cual se encutra en el repo
+    public static void analizadores(String ruta, String jflexFile, String cupFile){
+        try {
+            String opcionesJflex[] =  {ruta+jflexFile,"-d",ruta};
+            jflex.Main.generate(opcionesJflex);
+
+            String opcionesCup[] =  {"-destdir", ruta,"-parser","Parser",ruta+cupFile};
+            java_cup.Main.main(opcionesCup);
+            
+        } catch (Exception e) {
+            System.out.println("No se ha podido generar los analizadores");
+            System.out.println(e);
+        }
+    }
+    
+    //Funcion analizar, la cual se encutra en el repo
+        // Realizar Analisis
+    //Esta funcion recibe un estring u la analiza 
+    public static void analizar (String entrada){
+        try {
+            analizador.Lexer lexer = new analizador.Lexer(new StringReader(entrada));//este es el analizaro lexico 
+            analizador.Parser parser = new analizador.Parser(lexer);//lugo lo pasa al parser
+            parser.parse();//aqui ya lo traduce
+        } catch (Exception e) {//esta son esepciones por si hay errores
+            System.out.println("Error fatal en compilación de entrada.");
+            System.out.println(e);
+        } 
+    } 
+    
+    
+    
     
     //metodo para abrir un archivo:
     public String abrirArchivo() {
@@ -351,13 +442,18 @@ public class FrameInicio extends javax.swing.JFrame {
                     contenido.append(linea).append("\n");
                 }
                 lector.close();
+                nombreArchivo = archivoSeleccionado.getName();
                 return contenido.toString();
             } catch (IOException e) {
+                nombreArchivo = "null";
                 e.printStackTrace();
             }
         }
         return null;
     }
+    
+    
+    
     
     //metodo para "Nuevo Archivo":
     public void guardarTextoEnArchivoDF(JTextArea textArea) {

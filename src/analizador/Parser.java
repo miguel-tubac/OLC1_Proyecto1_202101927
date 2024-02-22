@@ -222,7 +222,7 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 System.out.println(val.toString()); 
+		 FuncionTokens.TextoConsola.consola += val.toString()+"\n"; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("dato_numero",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -234,7 +234,7 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 System.out.println(val.toString()); 
+		 FuncionTokens.TextoConsola.consola += val.toString()+"\n"; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("dato_numero",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -243,7 +243,10 @@ class CUP$Parser$actions {
           case 9: // comentario_linea ::= SIGNOINTERRO 
             {
               Object RESULT =null;
-		 System.out.println("!"); 
+		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 FuncionTokens.TextoConsola.consola += val.toString()+"\n"; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("comentario_linea",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

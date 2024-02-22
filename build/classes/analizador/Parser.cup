@@ -75,10 +75,10 @@ declaraciones ::= imprimir_consola
 imprimir_consola ::= CONSOLE DOBLEDOSPUNTOS PRINT IGUAL dato_numero END PUNTOYCOMA 
 ;
 
-dato_numero ::= NUMERODECIMAL:val                                      {: System.out.println(val.toString()); :}
-        | ENTERO:val                                                   {: System.out.println(val.toString()); :}
+dato_numero ::= NUMERODECIMAL:val                                      {: FuncionTokens.TextoConsola.consola += val.toString()+"\n"; :}
+        | ENTERO:val                                                   {: FuncionTokens.TextoConsola.consola += val.toString()+"\n"; :}
 ;
 
-comentario_linea ::= SIGNOINTERRO                                       
+comentario_linea ::= SIGNOINTERRO:val                                  {: FuncionTokens.TextoConsola.consola += val.toString()+"\n"; :}                                     
 ;
 
