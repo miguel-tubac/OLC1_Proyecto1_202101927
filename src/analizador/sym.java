@@ -16,6 +16,7 @@ public class sym {
   public static final int CHAR = 25;
   public static final int END = 8;
   public static final int CONSOLE = 6;
+  public static final int ID = 9;
   public static final int COMILLAS = 15;
   public static final int POR = 16;
   public static final int PROGRAM = 4;
@@ -34,7 +35,6 @@ public class sym {
   public static final int DOBLEDOSPUNTOS = 11;
   public static final int VAR = 27;
   public static final int MAS = 17;
-  public static final int LETRAS = 9;
   public static final int DOUBLE = 26;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -46,7 +46,7 @@ public class sym {
   "CONSOLE",
   "PRINT",
   "END",
-  "LETRAS",
+  "ID",
   "DOSPUNTOS",
   "DOBLEDOSPUNTOS",
   "COMA",

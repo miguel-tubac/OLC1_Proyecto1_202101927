@@ -274,6 +274,7 @@ public class FrameInicio extends javax.swing.JFrame {
             //analizar(texto); //-------------------------------------------------------------------------------
             String consola2 = FuncionTokens.TextoConsola.consola;
             jTextArea1.setText(consola2);
+            
             //String asdfasd =  "Lexema: \"";
             //FuncionTokens.FuncionDeTokens.listaTokens.add("!"); esto se coloca en Lexer.jflex
             //Con este se recorre la lista de Tokens

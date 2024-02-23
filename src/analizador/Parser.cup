@@ -36,7 +36,7 @@ terminal String ENTERO;
 terminal String NUMERODECIMAL;
 terminal String PROGRAM, END_PROGRAM;
 terminal String CONSOLE, PRINT, END;
-terminal String LETRAS;
+terminal String ID;
 terminal String DOSPUNTOS, DOBLEDOSPUNTOS;
 terminal String COMA, PUNTOYCOMA, IGUAL, COMILLAS;
 terminal String POR;
@@ -56,8 +56,6 @@ non terminal lista_instrucciones;
 non terminal expresion;
 non terminal instruccion;
 non terminal variables;
-non terminal caracter;
-non terminal letras1, letras2;
 
 
 //------> Definir Simbolo Inicial
@@ -79,24 +77,20 @@ instruccion ::= imprimir_consola
     | error PUNTOYCOMA
 ;
 
-imprimir_consola ::= CONSOLE DOBLEDOSPUNTOS PRINT IGUAL expresion:val END PUNTOYCOMA
+imprimir_consola ::= CONSOLE DOBLEDOSPUNTOS PRINT IGUAL expresion:val END PUNTOYCOMA {: FuncionTokens.TextoConsola.consola += val.toString()+"\n"; :}
 ;
 
-expresion ::= NUMERODECIMAL:val                                  {: FuncionTokens.TextoConsola.consola += val.toString()+"\n"; :}
-    | ENTERO:val                                                 {: FuncionTokens.TextoConsola.consola += val.toString()+"\n"; :}
+variables ::= VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION expresion:val END PUNTOYCOMA 
+                            {: 
+                            FuncionTokens.Instruccion.tablaDeSimbolos.put(var.toString(), val.toString()); 
+                            :}
+    | VAR DOSPUNTOS CHAR CORCHETE_A CORCHETE_C DOBLEDOSPUNTOS ID:var MENOR GUION COMILLAS ID:val COMILLAS END PUNTOYCOMA
+                            {: 
+                            FuncionTokens.Instruccion.tablaDeSimbolos.put(var.toString(), val.toString()); 
+                            :}
 ;
 
-variables ::= VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS letras1 MENOR GUION expresion:val END PUNTOYCOMA   
-;
-
-caracter ::= LETRAS
-    | ENTERO
-;
-
-letras1 ::= LETRAS
-    | LETRAS letras2
-;
-
-letras2 ::= caracter
-    | caracter letras2
+expresion ::= NUMERODECIMAL:val                                  {: RESULT = val.toString(); :}
+    | ENTERO:val                                                 {: RESULT = val.toString(); :}
+    | ID:val                                                     {: RESULT = FuncionTokens.Instruccion.tablaDeSimbolos.get(val.toString()); :}
 ;

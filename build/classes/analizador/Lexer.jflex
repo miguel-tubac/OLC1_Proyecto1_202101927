@@ -22,25 +22,18 @@ import java_cup.runtime.*;
 
 entero = [0-9]+
 numero_decimal = ([0-9]+\.[0-9]+)
-letras =  [A-Za-z]
-//signo =  [\!-\/\:-\@\]-_\{-\}\[]
+id = [a-zA-Z][a-zA-Z0-9_]*
 comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 
 %%
 // ------------  Reglas Lexicas -------------------, es decir aqui se llaman a las expreciones regulares, se generan los tokens
 //luego de cada declarion debo de ir y declararla en Parser.cup en "Declaración de terminales"
 
-{entero}            { return new Symbol(sym.ENTERO, yycolumn, yyline, yytext()); }
-{numero_decimal}    { return new Symbol(sym.NUMERODECIMAL, yycolumn, yyline, yytext()); }
-{letras}            { return new Symbol(sym.LETRAS, yycolumn, yyline, yytext()); }
-//{signo}            { return new Symbol(sym.SIGNO, yycolumn, yyline, yytext()); }
-{comentario}          {}
 
+//------> Simbolos
 ":"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: :"); return new Symbol(sym.DOSPUNTOS, yycolumn, yyline, yytext());}
 "::"      {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ::"); return new Symbol(sym.DOBLEDOSPUNTOS, yycolumn, yyline, yytext());}
 ","       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ,"); return new Symbol(sym.COMA, yycolumn, yyline, yytext());}
-"*"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: *"); return new Symbol(sym.POR, yycolumn, yyline, yytext());}
-"+"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: +"); return new Symbol(sym.MAS, yycolumn, yyline, yytext());}
 "("       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ("); return new Symbol(sym.PARENTESIS_A, yycolumn, yyline, yytext());}
 ")"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: )"); return new Symbol(sym.PARENTESIS_C, yycolumn, yyline, yytext());}
 ";"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ;"); return new Symbol(sym.PUNTOYCOMA, yycolumn, yyline, yytext());}
@@ -60,6 +53,17 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 "double"       { return new Symbol(sym.DOUBLE, yycolumn, yyline, yytext());}
 "var"       { return new Symbol(sym.VAR, yycolumn, yyline, yytext());}
 
+
+//------> Operadores
+"+"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: +"); return new Symbol(sym.MAS, yycolumn, yyline, yytext());}
+"*"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: *"); return new Symbol(sym.POR, yycolumn, yyline, yytext());}
+
+
+//------> Expresiones
+{entero}            { return new Symbol(sym.ENTERO, yycolumn, yyline, yytext()); }
+{numero_decimal}    { return new Symbol(sym.NUMERODECIMAL, yycolumn, yyline, yytext()); }
+{id}            { return new Symbol(sym.ID, yycolumn, yyline, yytext()); }
+{comentario}          {}
 
 
 //------> Ignorados 
