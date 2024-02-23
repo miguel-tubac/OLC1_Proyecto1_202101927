@@ -14,11 +14,13 @@ parser code
     public void syntax_error(Symbol s)
     {
             System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
+            FuncionTokens.TextoConsola.consola += "Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado"+"\n";
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
     {
             System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion." );
+            FuncionTokens.TextoConsola.consola += "Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion."+"\n";
     }
 
 :}
@@ -34,13 +36,15 @@ terminal String ENTERO;
 terminal String NUMERODECIMAL;
 terminal String PROGRAM, END_PROGRAM;
 terminal String CONSOLE, PRINT, END;
-terminal String SIGNOINTERRO, LETRAS;
+terminal String LETRAS;
 terminal String DOSPUNTOS, DOBLEDOSPUNTOS;
-terminal String COMA, PUNTOYCOMA, IGUAL;
+terminal String COMA, PUNTOYCOMA, IGUAL, COMILLAS;
 terminal String POR;
 terminal String MAS;
 terminal String PARENTESIS_A, PARENTESIS_C;
-terminal String MENOR, MAYOR;
+terminal String MENOR, MAYOR, GUION;
+terminal String CORCHETE_A, CORCHETE_C;
+terminal String CHAR, DOUBLE, VAR;
 
 
 
@@ -49,9 +53,11 @@ terminal String MENOR, MAYOR;
 non terminal inicio;
 non terminal imprimir_consola;
 non terminal lista_instrucciones;
-non terminal dato_numero;
-non terminal comentario_linea;
-non terminal declaraciones;
+non terminal expresion;
+non terminal instruccion;
+non terminal variables;
+non terminal caracter;
+non terminal letras1, letras2;
 
 
 //------> Definir Simbolo Inicial
@@ -64,21 +70,33 @@ inicio ::= PROGRAM lista_instrucciones END_PROGRAM
 ;
 
 
-lista_instrucciones ::=   lista_instrucciones declaraciones
-        | declaraciones
+lista_instrucciones ::=   lista_instrucciones instruccion
+    | instruccion
 ;
 
-declaraciones ::= imprimir_consola 
-        | comentario_linea
+instruccion ::= imprimir_consola 
+    | variables
+    | error PUNTOYCOMA
 ;
 
-imprimir_consola ::= CONSOLE DOBLEDOSPUNTOS PRINT IGUAL dato_numero END PUNTOYCOMA 
+imprimir_consola ::= CONSOLE DOBLEDOSPUNTOS PRINT IGUAL expresion:val END PUNTOYCOMA
 ;
 
-dato_numero ::= NUMERODECIMAL:val                                      {: FuncionTokens.TextoConsola.consola += val.toString()+"\n"; :}
-        | ENTERO:val                                                   {: FuncionTokens.TextoConsola.consola += val.toString()+"\n"; :}
+expresion ::= NUMERODECIMAL:val                                  {: FuncionTokens.TextoConsola.consola += val.toString()+"\n"; :}
+    | ENTERO:val                                                 {: FuncionTokens.TextoConsola.consola += val.toString()+"\n"; :}
 ;
 
-comentario_linea ::= SIGNOINTERRO:val                                  {: FuncionTokens.TextoConsola.consola += val.toString()+"\n"; :}                                     
+variables ::= VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS letras1 MENOR GUION expresion:val END PUNTOYCOMA   
 ;
 
+caracter ::= LETRAS
+    | ENTERO
+;
+
+letras1 ::= LETRAS
+    | LETRAS letras2
+;
+
+letras2 ::= caracter
+    | caracter letras2
+;

@@ -22,7 +22,9 @@ import java_cup.runtime.*;
 
 entero = [0-9]+
 numero_decimal = ([0-9]+\.[0-9]+)
-letras = [A-Za-z]
+letras =  [A-Za-z]
+//signo =  [\!-\/\:-\@\]-_\{-\}\[]
+comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 
 %%
 // ------------  Reglas Lexicas -------------------, es decir aqui se llaman a las expreciones regulares, se generan los tokens
@@ -31,8 +33,9 @@ letras = [A-Za-z]
 {entero}            { return new Symbol(sym.ENTERO, yycolumn, yyline, yytext()); }
 {numero_decimal}    { return new Symbol(sym.NUMERODECIMAL, yycolumn, yyline, yytext()); }
 {letras}            { return new Symbol(sym.LETRAS, yycolumn, yyline, yytext()); }
+//{signo}            { return new Symbol(sym.SIGNO, yycolumn, yyline, yytext()); }
+{comentario}          {}
 
-"!"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: !"); return new Symbol(sym.SIGNOINTERRO, yycolumn, yyline, yytext());}
 ":"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: :"); return new Symbol(sym.DOSPUNTOS, yycolumn, yyline, yytext());}
 "::"      {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ::"); return new Symbol(sym.DOBLEDOSPUNTOS, yycolumn, yyline, yytext());}
 ","       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ,"); return new Symbol(sym.COMA, yycolumn, yyline, yytext());}
@@ -44,11 +47,18 @@ letras = [A-Za-z]
 "="       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ="); return new Symbol(sym.IGUAL, yycolumn, yyline, yytext());}
 "<"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: <"); return new Symbol(sym.MENOR, yycolumn, yyline, yytext());}
 ">"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: >"); return new Symbol(sym.MAYOR, yycolumn, yyline, yytext());}
+"["       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ["); return new Symbol(sym.CORCHETE_A, yycolumn, yyline, yytext());}
+"]"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ]"); return new Symbol(sym.CORCHETE_C, yycolumn, yyline, yytext());}
+"-"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: -"); return new Symbol(sym.GUION, yycolumn, yyline, yytext());}
+"\""       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: \""); return new Symbol(sym.COMILLAS, yycolumn, yyline, yytext());}
 "PROGRAM"       { return new Symbol(sym.PROGRAM, yycolumn, yyline, yytext());}
 "END PROGRAM"       { return new Symbol(sym.END_PROGRAM, yycolumn, yyline, yytext());}
 "console"       { return new Symbol(sym.CONSOLE, yycolumn, yyline, yytext());}
 "print"       { return new Symbol(sym.PRINT, yycolumn, yyline, yytext());}
 "end"       { return new Symbol(sym.END, yycolumn, yyline, yytext());}
+"char"       { return new Symbol(sym.CHAR, yycolumn, yyline, yytext());}
+"double"       { return new Symbol(sym.DOUBLE, yycolumn, yyline, yytext());}
+"var"       { return new Symbol(sym.VAR, yycolumn, yyline, yytext());}
 
 
 
