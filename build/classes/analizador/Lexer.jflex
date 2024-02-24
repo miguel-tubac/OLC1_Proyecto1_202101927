@@ -22,7 +22,8 @@ import java_cup.runtime.*;
 
 entero = [0-9]+
 numero_decimal = ([0-9]+\.[0-9]+)
-id = [a-zA-Z][a-zA-Z0-9_]*
+espacio = [ ]
+id = [a-zA-Z][a-zA-Z0-9_]*|[\"][^\n\"]*[\"]
 comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 
 %%
@@ -43,7 +44,7 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 "["       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ["); return new Symbol(sym.CORCHETE_A, yycolumn, yyline, yytext());}
 "]"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ]"); return new Symbol(sym.CORCHETE_C, yycolumn, yyline, yytext());}
 "-"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: -"); return new Symbol(sym.GUION, yycolumn, yyline, yytext());}
-"\""       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: \""); return new Symbol(sym.COMILLAS, yycolumn, yyline, yytext());}
+"@"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: @"); return new Symbol(sym.ARROBA, yycolumn, yyline, yytext());}
 "PROGRAM"       { return new Symbol(sym.PROGRAM, yycolumn, yyline, yytext());}
 "END PROGRAM"       { return new Symbol(sym.END_PROGRAM, yycolumn, yyline, yytext());}
 "console"       { return new Symbol(sym.CONSOLE, yycolumn, yyline, yytext());}
@@ -52,6 +53,7 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 "char"       { return new Symbol(sym.CHAR, yycolumn, yyline, yytext());}
 "double"       { return new Symbol(sym.DOUBLE, yycolumn, yyline, yytext());}
 "var"       { return new Symbol(sym.VAR, yycolumn, yyline, yytext());}
+"arr"       { return new Symbol(sym.ARR, yycolumn, yyline, yytext());}
 
 
 //------> Operadores
@@ -60,10 +62,12 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 
 
 //------> Expresiones
+{espacio} {}
 {entero}            { return new Symbol(sym.ENTERO, yycolumn, yyline, yytext()); }
 {numero_decimal}    { return new Symbol(sym.NUMERODECIMAL, yycolumn, yyline, yytext()); }
 {id}            { return new Symbol(sym.ID, yycolumn, yyline, yytext()); }
 {comentario}          {}
+
 
 
 //------> Ignorados 

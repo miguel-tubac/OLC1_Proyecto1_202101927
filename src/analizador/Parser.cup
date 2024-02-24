@@ -2,6 +2,7 @@
 package analizador;
 
 import java_cup.runtime.*;
+import java.util.LinkedList;
 
 
 //------> Codigo para el parser
@@ -38,13 +39,13 @@ terminal String PROGRAM, END_PROGRAM;
 terminal String CONSOLE, PRINT, END;
 terminal String ID;
 terminal String DOSPUNTOS, DOBLEDOSPUNTOS;
-terminal String COMA, PUNTOYCOMA, IGUAL, COMILLAS;
+terminal String COMA, PUNTOYCOMA, IGUAL, ARROBA;
 terminal String POR;
 terminal String MAS;
 terminal String PARENTESIS_A, PARENTESIS_C;
 terminal String MENOR, MAYOR, GUION;
 terminal String CORCHETE_A, CORCHETE_C;
-terminal String CHAR, DOUBLE, VAR;
+terminal String CHAR, DOUBLE, VAR, ARR;
 
 
 
@@ -56,7 +57,7 @@ non terminal lista_instrucciones;
 non terminal expresion;
 non terminal instruccion;
 non terminal variables;
-
+non terminal arreglos, listaelemen;
 
 //------> Definir Simbolo Inicial
 start with inicio; 
@@ -74,6 +75,7 @@ lista_instrucciones ::=   lista_instrucciones instruccion
 
 instruccion ::= imprimir_consola 
     | variables
+    | arreglos
     | error PUNTOYCOMA
 ;
 
@@ -81,16 +83,38 @@ imprimir_consola ::= CONSOLE DOBLEDOSPUNTOS PRINT IGUAL expresion:val END PUNTOY
 ;
 
 variables ::= VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION expresion:val END PUNTOYCOMA 
-                            {: 
-                            FuncionTokens.Instruccion.tablaDeSimbolos.put(var.toString(), val.toString()); 
-                            :}
-    | VAR DOSPUNTOS CHAR CORCHETE_A CORCHETE_C DOBLEDOSPUNTOS ID:var MENOR GUION COMILLAS ID:val COMILLAS END PUNTOYCOMA
-                            {: 
-                            FuncionTokens.Instruccion.tablaDeSimbolos.put(var.toString(), val.toString()); 
-                            :}
+                            {: FuncionTokens.Instruccion.agregarValor(var.toString(), val.toString()); :}
+    | VAR DOSPUNTOS CHAR CORCHETE_A CORCHETE_C DOBLEDOSPUNTOS ID:var MENOR GUION ID:val END PUNTOYCOMA
+                            {: FuncionTokens.Instruccion.agregarValor(var.toString(), val.toString()); :}
+;
+
+arreglos ::= ARR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ARROBA ID MENOR GUION CORCHETE_A listaelemen:lista CORCHETE_C END PUNTOYCOMA
+    {: 
+        FuncionTokens.Instruccion.mostrarLista((LinkedList<String>) lista);
+    :}
+
+    | ARR DOSPUNTOS CHAR CORCHETE_A CORCHETE_C DOBLEDOSPUNTOS ARROBA ID MENOR GUION CORCHETE_A listaelemen:lista CORCHETE_C END PUNTOYCOMA
+    {: 
+        FuncionTokens.Instruccion.mostrarLista((LinkedList<String>) lista);
+    :}
+;
+
+listaelemen ::= listaelemen:listexp COMA expresion:exp      
+    {: 
+        LinkedList<String> lista = (LinkedList<String>) listexp;
+        lista.add(exp.toString());
+        RESULT = lista;
+    :}
+
+    | expresion:exp     
+    {:  
+        LinkedList<String> lista = new LinkedList<>();
+        lista.add(exp.toString());
+        RESULT = lista;
+    :}
 ;
 
 expresion ::= NUMERODECIMAL:val                                  {: RESULT = val.toString(); :}
     | ENTERO:val                                                 {: RESULT = val.toString(); :}
-    | ID:val                                                     {: RESULT = FuncionTokens.Instruccion.tablaDeSimbolos.get(val.toString()); :}
+    | ID:val                                                    {: RESULT = FuncionTokens.Instruccion.obtenerValor(val.toString()); :}
 ;

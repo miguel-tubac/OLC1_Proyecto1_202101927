@@ -11,13 +11,13 @@ public class sym {
   public static final int GUION = 22;
   public static final int MENOR = 20;
   public static final int PUNTOYCOMA = 13;
+  public static final int ARR = 28;
   public static final int DOSPUNTOS = 10;
   public static final int IGUAL = 14;
   public static final int CHAR = 25;
   public static final int END = 8;
   public static final int CONSOLE = 6;
   public static final int ID = 9;
-  public static final int COMILLAS = 15;
   public static final int POR = 16;
   public static final int PROGRAM = 4;
   public static final int NUMERODECIMAL = 3;
@@ -31,6 +31,7 @@ public class sym {
   public static final int PARENTESIS_A = 18;
   public static final int ENTERO = 2;
   public static final int CORCHETE_C = 24;
+  public static final int ARROBA = 15;
   public static final int CORCHETE_A = 23;
   public static final int DOBLEDOSPUNTOS = 11;
   public static final int VAR = 27;
@@ -52,7 +53,7 @@ public class sym {
   "COMA",
   "PUNTOYCOMA",
   "IGUAL",
-  "COMILLAS",
+  "ARROBA",
   "POR",
   "MAS",
   "PARENTESIS_A",
@@ -64,7 +65,8 @@ public class sym {
   "CORCHETE_C",
   "CHAR",
   "DOUBLE",
-  "VAR"
+  "VAR",
+  "ARR"
   };
 }
 
