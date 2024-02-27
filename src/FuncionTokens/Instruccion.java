@@ -6,9 +6,8 @@ import java.util.LinkedList;
 
 
 public class Instruccion {
-                                //este segundo estring se tiene que modificar como objeto
+    //Esta es donde se alamcenan los simbolos
     public static HashMap<String, Object> tablaDeSimbolos = new HashMap<>();
-    //public static HashMap<String, LinkedList> tablaArre = new HashMap<>();
     
     
     // Método para agregar un valor a la tabla de símbolos

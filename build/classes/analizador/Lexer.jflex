@@ -55,6 +55,11 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 "double"       { return new Symbol(sym.DOUBLE, yycolumn, yyline, yytext());}
 "var"       { return new Symbol(sym.VAR, yycolumn, yyline, yytext());}
 "arr"       { return new Symbol(sym.ARR, yycolumn, yyline, yytext());}
+"SUM"       { return new Symbol(sym.SUM, yycolumn, yyline, yytext());}
+"RES"       { return new Symbol(sym.RES, yycolumn, yyline, yytext());}
+"MUL"       { return new Symbol(sym.MUL, yycolumn, yyline, yytext());}
+"DIV"       { return new Symbol(sym.DIV, yycolumn, yyline, yytext());}
+"MOD"       { return new Symbol(sym.MOD, yycolumn, yyline, yytext());}
 
 
 //------> Operadores

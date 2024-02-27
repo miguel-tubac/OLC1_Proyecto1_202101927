@@ -260,7 +260,7 @@ public class FrameInicio extends javax.swing.JFrame {
             //el paquete analizador
 
             analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");//-------------------------------------------------------------
-
+            
             //Llamada a la funcion analizar:
             /*String entrada = ("""
                                     PROGRAM

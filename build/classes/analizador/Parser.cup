@@ -46,6 +46,7 @@ terminal String PARENTESIS_A, PARENTESIS_C;
 terminal String MENOR, MAYOR, GUION;
 terminal String CORCHETE_A, CORCHETE_C;
 terminal String CHAR, DOUBLE, VAR, ARR;
+terminal String SUM, RES, MUL, DIV, MOD;
 
 
 
@@ -58,6 +59,10 @@ non terminal expresion;
 non terminal instruccion;
 non terminal variables;
 non terminal arreglos, listaelemen;
+non terminal operacionsum, operacionres, operacionmul, operaciondiv, operacionmod;
+
+//------> PRECEDENCIA
+precedence left COMA;
 
 //------> Definir Simbolo Inicial
 start with inicio; 
@@ -86,7 +91,58 @@ variables ::= VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION expresion:v
                             {: FuncionTokens.Instruccion.agregarValor(var.toString(), val.toString()); :}
     | VAR DOSPUNTOS CHAR CORCHETE_A CORCHETE_C DOBLEDOSPUNTOS ID:var MENOR GUION ID:val END PUNTOYCOMA
                             {: FuncionTokens.Instruccion.agregarValor(var.toString(), val.toString()); :}
+    | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION SUM PARENTESIS_A operacionsum:val PARENTESIS_C END PUNTOYCOMA
+                            {: FuncionTokens.Instruccion.agregarValor(var.toString(), val.toString()); :}
+    | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION RES PARENTESIS_A operacionres:val PARENTESIS_C END PUNTOYCOMA
+                            {: FuncionTokens.Instruccion.agregarValor(var.toString(), val.toString()); :}
+    | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION MUL PARENTESIS_A operacionmul:val PARENTESIS_C END PUNTOYCOMA
+                            {: FuncionTokens.Instruccion.agregarValor(var.toString(), val.toString()); :}
+    | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION DIV PARENTESIS_A operaciondiv:val PARENTESIS_C END PUNTOYCOMA
+                            {: FuncionTokens.Instruccion.agregarValor(var.toString(), val.toString()); :}
+    | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION MOD PARENTESIS_A operacionmod:val PARENTESIS_C END PUNTOYCOMA
+                            {: FuncionTokens.Instruccion.agregarValor(var.toString(), val.toString()); :}
 ;
+
+operacionsum ::= expresion:val1 COMA expresion:val2    {: RESULT = FuncionTokens.Expresion.suma(val1.toString(), val2.toString()); :}
+    | operacionsum SUM expresion:val2    {: RESULT = FuncionTokens.Expresion.suma(RESULT.toString(), val2.toString()); :}
+    | operacionsum RES expresion:val2    {: RESULT = FuncionTokens.Expresion.resta(RESULT.toString(), val2.toString()); :}
+    | operacionsum MUL expresion:val2    {: RESULT = FuncionTokens.Expresion.multiplicacion(RESULT.toString(), val2.toString()); :}
+    | operacionsum DIV expresion:val2    {: RESULT = FuncionTokens.Expresion.divicion(RESULT.toString(), val2.toString()); :}
+    | operacionsum MOD expresion:val2    {: RESULT = FuncionTokens.Expresion.modulo(RESULT.toString(), val2.toString()); :}
+;
+
+operacionres ::= expresion:val1 COMA expresion:val2    {: RESULT = FuncionTokens.Expresion.resta(val1.toString(), val2.toString()); :}
+    | operacionres RES expresion:val2    {: RESULT = FuncionTokens.Expresion.resta(RESULT.toString(), val2.toString()); :}
+    | operacionres SUM expresion:val2    {: RESULT = FuncionTokens.Expresion.suma(RESULT.toString(), val2.toString()); :}
+    | operacionres MUL expresion:val2    {: RESULT = FuncionTokens.Expresion.multiplicacion(RESULT.toString(), val2.toString()); :}
+    | operacionres DIV expresion:val2    {: RESULT = FuncionTokens.Expresion.divicion(RESULT.toString(), val2.toString()); :}
+    | operacionres MOD expresion:val2    {: RESULT = FuncionTokens.Expresion.modulo(RESULT.toString(), val2.toString()); :}
+;
+
+operacionmul ::= expresion:val1 COMA expresion:val2    {: RESULT = FuncionTokens.Expresion.multiplicacion(val1.toString(), val2.toString()); :}
+    | operacionmul MUL expresion:val2    {: RESULT = FuncionTokens.Expresion.multiplicacion(RESULT.toString(), val2.toString()); :}
+    | operacionmul RES expresion:val2    {: RESULT = FuncionTokens.Expresion.resta(RESULT.toString(), val2.toString()); :}
+    | operacionmul SUM expresion:val2    {: RESULT = FuncionTokens.Expresion.suma(RESULT.toString(), val2.toString()); :}
+    | operacionmul DIV expresion:val2    {: RESULT = FuncionTokens.Expresion.divicion(RESULT.toString(), val2.toString()); :}
+    | operacionmul MOD expresion:val2    {: RESULT = FuncionTokens.Expresion.modulo(RESULT.toString(), val2.toString()); :}    
+;
+
+operaciondiv ::= expresion:val1 COMA expresion:val2    {: RESULT = FuncionTokens.Expresion.divicion(val1.toString(), val2.toString()); :}
+    | operaciondiv DIV expresion:val2    {: RESULT = FuncionTokens.Expresion.divicion(RESULT.toString(), val2.toString()); :}
+    | operaciondiv MUL expresion:val2    {: RESULT = FuncionTokens.Expresion.multiplicacion(RESULT.toString(), val2.toString()); :}
+    | operaciondiv RES expresion:val2    {: RESULT = FuncionTokens.Expresion.resta(RESULT.toString(), val2.toString()); :}
+    | operaciondiv SUM expresion:val2    {: RESULT = FuncionTokens.Expresion.suma(RESULT.toString(), val2.toString()); :}
+    | operaciondiv MOD expresion:val2    {: RESULT = FuncionTokens.Expresion.modulo(RESULT.toString(), val2.toString()); :}   
+;
+
+operacionmod ::= expresion:val1 COMA expresion:val2    {: RESULT = FuncionTokens.Expresion.modulo(val1.toString(), val2.toString()); :}
+    | operacionmod MOD expresion:val2    {: RESULT = FuncionTokens.Expresion.modulo(RESULT.toString(), val2.toString()); :}
+    | operacionmod DIV expresion:val2    {: RESULT = FuncionTokens.Expresion.divicion(RESULT.toString(), val2.toString()); :}
+    | operacionmod MUL expresion:val2    {: RESULT = FuncionTokens.Expresion.multiplicacion(RESULT.toString(), val2.toString()); :}
+    | operacionmod RES expresion:val2    {: RESULT = FuncionTokens.Expresion.resta(RESULT.toString(), val2.toString()); :}
+    | operacionmod SUM expresion:val2    {: RESULT = FuncionTokens.Expresion.suma(RESULT.toString(), val2.toString()); :}
+;
+
 
 arreglos ::= ARR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ARROBA ID:var MENOR GUION CORCHETE_A listaelemen:lista CORCHETE_C END PUNTOYCOMA
     {:
@@ -128,4 +184,9 @@ expresion ::= NUMERODECIMAL:val                                  {: RESULT = val
                                                                        RESULT = val.toString(); 
                                                                     }
                                                                 :}
+    | SUM PARENTESIS_A expresion:val1 COMA expresion:val2 PARENTESIS_C {: RESULT = FuncionTokens.Expresion.suma(val1.toString(), val2.toString()); :}
+    | RES PARENTESIS_A expresion:val1 COMA expresion:val2 PARENTESIS_C {: RESULT = FuncionTokens.Expresion.resta(val1.toString(), val2.toString()); :}
+    | MUL PARENTESIS_A expresion:val1 COMA expresion:val2 PARENTESIS_C {: RESULT = FuncionTokens.Expresion.multiplicacion(val1.toString(), val2.toString()); :}
+    | DIV PARENTESIS_A expresion:val1 COMA expresion:val2 PARENTESIS_C {: RESULT = FuncionTokens.Expresion.divicion(val1.toString(), val2.toString()); :}
+    | MOD PARENTESIS_A expresion:val1 COMA expresion:val2 PARENTESIS_C {: RESULT = FuncionTokens.Expresion.modulo(val1.toString(), val2.toString()); :}
 ;
