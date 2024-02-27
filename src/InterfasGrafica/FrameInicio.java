@@ -259,7 +259,7 @@ public class FrameInicio extends javax.swing.JFrame {
             //Comente la llamada a la funcion ya que solo se debe de ejecutar una ves, para que genere los archivos .java en 
             //el paquete analizador
 
-            //analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");//-------------------------------------------------------------
+            analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");//-------------------------------------------------------------
 
             //Llamada a la funcion analizar:
             /*String entrada = ("""
@@ -271,7 +271,7 @@ public class FrameInicio extends javax.swing.JFrame {
                                           !
                                     END PROGRAM
                               """);*/
-            analizar(texto); //-------------------------------------------------------------------------------
+            //analizar(texto); //-------------------------------------------------------------------------------
             String consola2 = FuncionTokens.TextoConsola.consola;
             jTextArea1.setText(consola2);
             

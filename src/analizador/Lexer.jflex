@@ -45,6 +45,7 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 "]"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ]"); return new Symbol(sym.CORCHETE_C, yycolumn, yyline, yytext());}
 "-"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: -"); return new Symbol(sym.GUION, yycolumn, yyline, yytext());}
 "@"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: @"); return new Symbol(sym.ARROBA, yycolumn, yyline, yytext());}
+"\""      {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: \""); return new Symbol(sym.COMILLAS, yycolumn, yyline, yytext());}
 "PROGRAM"       { return new Symbol(sym.PROGRAM, yycolumn, yyline, yytext());}
 "END PROGRAM"       { return new Symbol(sym.END_PROGRAM, yycolumn, yyline, yytext());}
 "console"       { return new Symbol(sym.CONSOLE, yycolumn, yyline, yytext());}

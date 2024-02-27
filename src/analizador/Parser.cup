@@ -37,7 +37,7 @@ terminal String ENTERO;
 terminal String NUMERODECIMAL;
 terminal String PROGRAM, END_PROGRAM;
 terminal String CONSOLE, PRINT, END;
-terminal String ID;
+terminal String ID, COMILLAS;
 terminal String DOSPUNTOS, DOBLEDOSPUNTOS;
 terminal String COMA, PUNTOYCOMA, IGUAL, ARROBA;
 terminal String POR;
@@ -88,33 +88,44 @@ variables ::= VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION expresion:v
                             {: FuncionTokens.Instruccion.agregarValor(var.toString(), val.toString()); :}
 ;
 
-arreglos ::= ARR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ARROBA ID MENOR GUION CORCHETE_A listaelemen:lista CORCHETE_C END PUNTOYCOMA
-    {: 
+arreglos ::= ARR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ARROBA ID:var MENOR GUION CORCHETE_A listaelemen:lista CORCHETE_C END PUNTOYCOMA
+    {:
+        FuncionTokens.Instruccion.agregarValor(var.toString(), (LinkedList<String>) lista);
         FuncionTokens.Instruccion.mostrarLista((LinkedList<String>) lista);
     :}
 
-    | ARR DOSPUNTOS CHAR CORCHETE_A CORCHETE_C DOBLEDOSPUNTOS ARROBA ID MENOR GUION CORCHETE_A listaelemen:lista CORCHETE_C END PUNTOYCOMA
+    | ARR DOSPUNTOS CHAR CORCHETE_A CORCHETE_C DOBLEDOSPUNTOS ARROBA ID:var MENOR GUION CORCHETE_A listaelemen:lista CORCHETE_C END PUNTOYCOMA
     {: 
+        FuncionTokens.Instruccion.agregarValor(var.toString(), (LinkedList<String>) lista);
         FuncionTokens.Instruccion.mostrarLista((LinkedList<String>) lista);
     :}
 ;
 
-listaelemen ::= listaelemen:listexp COMA expresion:exp      
+
+listaelemen ::= listaelemen:listexp COMA expresion:exp1       
     {: 
         LinkedList<String> lista = (LinkedList<String>) listexp;
-        lista.add(exp.toString());
+        lista.add(exp1.toString());
         RESULT = lista;
     :}
 
-    | expresion:exp     
+    | expresion:exp2    
     {:  
         LinkedList<String> lista = new LinkedList<>();
-        lista.add(exp.toString());
+        lista.add(exp2.toString());
         RESULT = lista;
     :}
 ;
+
 
 expresion ::= NUMERODECIMAL:val                                  {: RESULT = val.toString(); :}
     | ENTERO:val                                                 {: RESULT = val.toString(); :}
-    | ID:val                                                    {: RESULT = FuncionTokens.Instruccion.obtenerValor(val.toString()); :}
+    | ID:val                                                    {: 
+                                                                    String com = FuncionTokens.Instruccion.obtenerValor(val.toString());
+                                                                    if(com != null){
+                                                                        RESULT = com;
+                                                                    } else{
+                                                                       RESULT = val.toString(); 
+                                                                    }
+                                                                :}
 ;
