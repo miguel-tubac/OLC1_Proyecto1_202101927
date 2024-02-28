@@ -47,6 +47,7 @@ terminal String MENOR, MAYOR, GUION;
 terminal String CORCHETE_A, CORCHETE_C;
 terminal String CHAR, DOUBLE, VAR, ARR;
 terminal String SUM, RES, MUL, DIV, MOD;
+terminal String MEDIA, MEDIANA, MODA, VARIANZA, MAX, MIN;
 
 
 
@@ -60,9 +61,10 @@ non terminal instruccion;
 non terminal variables;
 non terminal arreglos, listaelemen;
 non terminal operacionsum, operacionres, operacionmul, operaciondiv, operacionmod;
+non terminal operacionmedia;
 
 //------> PRECEDENCIA
-precedence left COMA;
+precedence left COMA, PARENTESIS_A, CORCHETE_A, CORCHETE_C, PARENTESIS_C;
 
 //------> Definir Simbolo Inicial
 start with inicio; 
@@ -101,6 +103,9 @@ variables ::= VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION expresion:v
                             {: FuncionTokens.Instruccion.agregarValor(var.toString(), val.toString()); :}
     | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION MOD PARENTESIS_A operacionmod:val PARENTESIS_C END PUNTOYCOMA
                             {: FuncionTokens.Instruccion.agregarValor(var.toString(), val.toString()); :}
+    | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION MEDIA PARENTESIS_A CORCHETE_A operacionmedia:val CORCHETE_C PARENTESIS_C END PUNTOYCOMA
+                            {: FuncionTokens.Instruccion.agregarValor(var.toString(), val.toString()); :}
+            
 ;
 
 operacionsum ::= expresion:val1 COMA expresion:val2    {: RESULT = FuncionTokens.Expresion.suma(val1.toString(), val2.toString()); :}
@@ -157,6 +162,9 @@ arreglos ::= ARR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ARROBA ID:var MENOR GUION CORCH
     :}
 ;
 
+operacionmedia ::= listaelemen:lista    {: RESULT = FuncionTokens.Expresion.calcularMedia((LinkedList<String>) lista); :}
+    | operacionmedia MEDIA PARENTESIS_A CORCHETE_A listaelemen:lista CORCHETE_C PARENTESIS_C   {: RESULT = FuncionTokens.Expresion.calcularMedia((LinkedList<String>) lista); :}
+;
 
 listaelemen ::= listaelemen:listexp COMA expresion:exp1       
     {: 
@@ -189,4 +197,5 @@ expresion ::= NUMERODECIMAL:val                                  {: RESULT = val
     | MUL PARENTESIS_A expresion:val1 COMA expresion:val2 PARENTESIS_C {: RESULT = FuncionTokens.Expresion.multiplicacion(val1.toString(), val2.toString()); :}
     | DIV PARENTESIS_A expresion:val1 COMA expresion:val2 PARENTESIS_C {: RESULT = FuncionTokens.Expresion.divicion(val1.toString(), val2.toString()); :}
     | MOD PARENTESIS_A expresion:val1 COMA expresion:val2 PARENTESIS_C {: RESULT = FuncionTokens.Expresion.modulo(val1.toString(), val2.toString()); :}
+    | MEDIA PARENTESIS_A CORCHETE_A listaelemen:lista CORCHETE_C PARENTESIS_C   {: RESULT = FuncionTokens.Expresion.calcularMedia((LinkedList<String>) lista); :}
 ;

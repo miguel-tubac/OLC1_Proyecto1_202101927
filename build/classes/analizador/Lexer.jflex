@@ -60,6 +60,12 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 "MUL"       { return new Symbol(sym.MUL, yycolumn, yyline, yytext());}
 "DIV"       { return new Symbol(sym.DIV, yycolumn, yyline, yytext());}
 "MOD"       { return new Symbol(sym.MOD, yycolumn, yyline, yytext());}
+"Media"       { return new Symbol(sym.MEDIA, yycolumn, yyline, yytext());}
+"Mediana"       { return new Symbol(sym.MEDIANA, yycolumn, yyline, yytext());}
+"Moda"       { return new Symbol(sym.MODA, yycolumn, yyline, yytext());}
+"Varianza"       { return new Symbol(sym.VARIANZA, yycolumn, yyline, yytext());}
+"Max"       { return new Symbol(sym.MAX, yycolumn, yyline, yytext());}
+"Min"       { return new Symbol(sym.MIN, yycolumn, yyline, yytext());}
 
 
 //------> Operadores
