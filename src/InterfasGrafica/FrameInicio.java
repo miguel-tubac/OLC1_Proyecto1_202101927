@@ -252,7 +252,7 @@ public class FrameInicio extends javax.swing.JFrame {
             //Ruta en donde se enceuntra nuestra clase principal Main
             // es:  src/proyecto_1/Main.java
         if (validacion){
-            FuncionTokens.TextoConsola.consola = "";//Reinicia el texto ingresado a la consola
+            Funciones.TextoConsola.consola = "";//Reinicia el texto ingresado a la consola
             //ejemplo de utilizacion de la funcion analizadores
             // primer atributo: ruta donde se encuentran los archivos flex y cup
             //Segundo paramentro el nombre del jflex al igual que el tercer parametro
@@ -260,7 +260,7 @@ public class FrameInicio extends javax.swing.JFrame {
             //el paquete analizador
 
             analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");//-------------------------------------------------------------
-            
+            Funciones.Instruccion.agregarTexto(texto);
             //Llamada a la funcion analizar:
             /*String entrada = ("""
                                     PROGRAM
@@ -272,7 +272,7 @@ public class FrameInicio extends javax.swing.JFrame {
                                     END PROGRAM
                               """);*/
             //analizar(texto); //-------------------------------------------------------------------------------
-            String consola2 = FuncionTokens.TextoConsola.consola;
+            String consola2 = Funciones.TextoConsola.consola;
             jTextArea1.setText(consola2);
             
             
@@ -281,7 +281,7 @@ public class FrameInicio extends javax.swing.JFrame {
             //Con este se recorre la lista de Tokens
             //Se deve de generar un nuevo objeto en el cual se colocque la fila, columna lexema... 
             //y eso se debe de guardar en la listaTokens
-            FuncionTokens.FuncionDeTokens.listaTokens.forEach((elemento)-> {
+            Funciones.FuncionDeTokens.listaTokens.forEach((elemento)-> {
 
                // System.out.println(elemento.toString());
             }); 

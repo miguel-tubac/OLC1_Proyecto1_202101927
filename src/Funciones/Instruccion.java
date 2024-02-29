@@ -1,14 +1,21 @@
 
-package FuncionTokens;
+package Funciones;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 
 
 public class Instruccion {
+    //Texto que se muestra en consola
+    public static String consola = "";
+    
     //Esta es donde se alamcenan los simbolos
     public static HashMap<String, Object> tablaDeSimbolos = new HashMap<>();
     
+    //Metodo para agregar el texto a consola
+    public static void agregarTexto(String texto){
+        consola += texto;
+    }
     
     // Método para agregar un valor a la tabla de símbolos
     public static void agregarValor(String clave, Object valor) {
@@ -33,8 +40,8 @@ public class Instruccion {
 
     public static void mostrarLista(LinkedList<String> lista){
         lista.forEach((elemento) -> {
-            FuncionTokens.TextoConsola.consola += elemento.toString();
+            Funciones.Instruccion.agregarTexto(elemento.toString());
         });
-        FuncionTokens.TextoConsola.consola +="\n";
+        Funciones.Instruccion.agregarTexto("\n");
     }
 }

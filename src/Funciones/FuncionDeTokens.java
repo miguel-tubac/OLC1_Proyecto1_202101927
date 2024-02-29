@@ -1,5 +1,5 @@
 //Aqui se genera la lista dinamina en donde se guardaran los tokens
-package FuncionTokens;
+package Funciones;
 
 import java.util.LinkedList;
 

@@ -9,46 +9,44 @@ package analizador;
 public class sym {
   /* terminals */
   public static final int NUMERODECIMAL = 3;
-  public static final int DOSPUNTOS = 11;
-  public static final int DOBLEDOSPUNTOS = 12;
-  public static final int POR = 17;
-  public static final int CHAR = 26;
-  public static final int PUNTOYCOMA = 14;
-  public static final int RES = 31;
+  public static final int DOSPUNTOS = 10;
+  public static final int DOBLEDOSPUNTOS = 11;
+  public static final int POR = 15;
+  public static final int CHAR = 24;
+  public static final int PUNTOYCOMA = 13;
+  public static final int RES = 29;
   public static final int ENTERO = 2;
-  public static final int DOUBLE = 27;
-  public static final int CORCHETE_C = 25;
-  public static final int CORCHETE_A = 24;
+  public static final int DOUBLE = 25;
+  public static final int CORCHETE_C = 23;
+  public static final int CORCHETE_A = 22;
   public static final int END_PROGRAM = 5;
-  public static final int IGUAL = 15;
-  public static final int ARROBA = 16;
-  public static final int DIV = 33;
-  public static final int GUION = 23;
-  public static final int MIN = 40;
+  public static final int IGUAL = 14;
+  public static final int DIV = 31;
+  public static final int GUION = 21;
+  public static final int MIN = 38;
   public static final int ID = 9;
-  public static final int MEDIANA = 36;
+  public static final int MEDIANA = 34;
   public static final int EOF = 0;
-  public static final int COMILLAS = 10;
   public static final int error = 1;
   public static final int PROGRAM = 4;
-  public static final int MUL = 32;
-  public static final int COMA = 13;
-  public static final int MENOR = 21;
-  public static final int MODA = 37;
-  public static final int MOD = 34;
-  public static final int MAYOR = 22;
-  public static final int PARENTESIS_C = 20;
-  public static final int PARENTESIS_A = 19;
-  public static final int VARIANZA = 38;
+  public static final int MUL = 30;
+  public static final int COMA = 12;
+  public static final int MENOR = 19;
+  public static final int MODA = 35;
+  public static final int MOD = 32;
+  public static final int MAYOR = 20;
+  public static final int PARENTESIS_C = 18;
+  public static final int PARENTESIS_A = 17;
+  public static final int VARIANZA = 36;
   public static final int END = 8;
-  public static final int SUM = 30;
-  public static final int ARR = 29;
-  public static final int MEDIA = 35;
-  public static final int MAX = 39;
-  public static final int VAR = 28;
+  public static final int SUM = 28;
+  public static final int ARR = 27;
+  public static final int MEDIA = 33;
+  public static final int MAX = 37;
+  public static final int VAR = 26;
   public static final int PRINT = 7;
   public static final int CONSOLE = 6;
-  public static final int MAS = 18;
+  public static final int MAS = 16;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -60,13 +58,11 @@ public class sym {
   "PRINT",
   "END",
   "ID",
-  "COMILLAS",
   "DOSPUNTOS",
   "DOBLEDOSPUNTOS",
   "COMA",
   "PUNTOYCOMA",
   "IGUAL",
-  "ARROBA",
   "POR",
   "MAS",
   "PARENTESIS_A",

@@ -34,7 +34,7 @@ public class Proyecto_1 {
         //Con este se recorre la lista de Tokens
         //Se deve de generar un nuevo objeto en el cual se colocque la fila, columna lexema... 
         //y eso se debe de guardar en la listaTokens
-        FuncionTokens.FuncionDeTokens.listaTokens.forEach((elemento)-> {
+        Funciones.FuncionDeTokens.listaTokens.forEach((elemento)-> {
             
            // System.out.println(elemento.toString());
         });

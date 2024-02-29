@@ -23,7 +23,7 @@ import java_cup.runtime.*;
 entero = [0-9]+
 numero_decimal = ([0-9]+\.[0-9]+)
 espacio = [ ]
-id = [a-zA-Z][a-zA-Z0-9_]*|[\"][^\n\"]*[\"]
+id = [a-zA-Z@][a-zA-Z0-9_]*|[\"][^\n\"]*[\"]
 comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 
 %%
@@ -44,8 +44,6 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 "["       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ["); return new Symbol(sym.CORCHETE_A, yycolumn, yyline, yytext());}
 "]"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ]"); return new Symbol(sym.CORCHETE_C, yycolumn, yyline, yytext());}
 "-"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: -"); return new Symbol(sym.GUION, yycolumn, yyline, yytext());}
-"@"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: @"); return new Symbol(sym.ARROBA, yycolumn, yyline, yytext());}
-"\""      {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: \""); return new Symbol(sym.COMILLAS, yycolumn, yyline, yytext());}
 "PROGRAM"       { return new Symbol(sym.PROGRAM, yycolumn, yyline, yytext());}
 "END PROGRAM"       { return new Symbol(sym.END_PROGRAM, yycolumn, yyline, yytext());}
 "console"       { return new Symbol(sym.CONSOLE, yycolumn, yyline, yytext());}
