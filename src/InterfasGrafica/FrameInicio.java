@@ -27,7 +27,6 @@ import javax.swing.JTextPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import static proyecto_1.Proyecto_1.analizar;
 
 /**
  *
@@ -250,38 +249,29 @@ public class FrameInicio extends javax.swing.JFrame {
         
         //Analisis del texto ingresado
             //Ruta en donde se enceuntra nuestra clase principal Main
-            // es:  src/proyecto_1/Main.java
+            // es:  src/Analizadores
         if (validacion){
-            Funciones.TextoConsola.consola = "";//Reinicia el texto ingresado a la consola
+            Funciones.Instruccion.reiniciarTexto();//Reinicia el texto ingresado a la consola
+            Funciones.Instruccion.reiniciarTokens();//Reinicia los tokens
+            Funciones.Instruccion.reiniciarTablaDeSimbolos();//Reinicia la tabla de simbolos
+            Funciones.Instruccion.reiniciarErrores();//Reinicia la tabla de Errores
             //ejemplo de utilizacion de la funcion analizadores
             // primer atributo: ruta donde se encuentran los archivos flex y cup
             //Segundo paramentro el nombre del jflex al igual que el tercer parametro
             //Comente la llamada a la funcion ya que solo se debe de ejecutar una ves, para que genere los archivos .java en 
             //el paquete analizador
 
-            analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");//-------------------------------------------------------------
-            Funciones.Instruccion.agregarTexto(texto);
-            //Llamada a la funcion analizar:
-            /*String entrada = ("""
-                                    PROGRAM
-                                          !
-                                          console::print = 34 end; 
-                                          console::print = 25 end;
-                                          console::print = 25.4 end;
-                                          !
-                                    END PROGRAM
-                              """);*/
-            //analizar(texto); //-------------------------------------------------------------------------------
-            String consola2 = Funciones.TextoConsola.consola;
+            analizadores("src/Analizadores/", "Lexer.jflex", "Parser.cup");//------------------------------------------------------------- Aqui 1 
+            
+            //analizar(texto); //------------------------------------------------------------------------------- Aqui 2
+            //Se ingresa el texto a la consola sin comillas
+            String consola2 = Funciones.Instruccion.consola.replace("\"", "");
             jTextArea1.setText(consola2);
             
             
-            //String asdfasd =  "Lexema: \"";
-            //FuncionTokens.FuncionDeTokens.listaTokens.add("!"); esto se coloca en Lexer.jflex
-            //Con este se recorre la lista de Tokens
             //Se deve de generar un nuevo objeto en el cual se colocque la fila, columna lexema... 
             //y eso se debe de guardar en la listaTokens
-            Funciones.FuncionDeTokens.listaTokens.forEach((elemento)-> {
+            Funciones.Instruccion.listaTokens.forEach((elemento)-> {
 
                // System.out.println(elemento.toString());
             }); 
@@ -407,6 +397,8 @@ public class FrameInicio extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("No se ha podido generar los analizadores");
             System.out.println(e);
+            Funciones.Instruccion.agregarError("No se ha podido generar los analizadores");
+            Funciones.Instruccion.agregarError(e);
         }
     }
     
@@ -415,12 +407,14 @@ public class FrameInicio extends javax.swing.JFrame {
     //Esta funcion recibe un estring u la analiza 
     public static void analizar (String entrada){
         try {
-            analizador.Lexer lexer = new analizador.Lexer(new StringReader(entrada));//este es el analizaro lexico 
-            analizador.Parser parser = new analizador.Parser(lexer);//lugo lo pasa al parser
+            Analizadores.Lexer lexer = new Analizadores.Lexer(new StringReader(entrada));//este es el analizaro lexico 
+            Analizadores.Parser parser = new Analizadores.Parser(lexer);//lugo lo pasa al parser
             parser.parse();//aqui ya lo traduce
         } catch (Exception e) {//esta son esepciones por si hay errores
             System.out.println("Error fatal en compilación de entrada.");
             System.out.println(e);
+            Funciones.Instruccion.agregarError("Error fatal en compilación de entrada.");
+            Funciones.Instruccion.agregarError(e);
         } 
     } 
     

@@ -1,5 +1,5 @@
 // ------------  Paquete e importaciones ------------
-package analizador; 
+package Analizadores; 
 
 import java_cup.runtime.*;
 
@@ -27,23 +27,24 @@ id = [a-zA-Z@][a-zA-Z0-9_]*|[\"][^\n\"]*[\"]
 comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 
 %%
-// ------------  Reglas Lexicas -------------------, es decir aqui se llaman a las expreciones regulares, se generan los tokens
+// ------------  Reglas Lexicas -------------------
+//Aqui se llaman a las expreciones regulares, se generan los tokens
 //luego de cada declarion debo de ir y declararla en Parser.cup en "Declaración de terminales"
 
 
 //------> Simbolos
-":"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: :"); return new Symbol(sym.DOSPUNTOS, yycolumn, yyline, yytext());}
-"::"      {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ::"); return new Symbol(sym.DOBLEDOSPUNTOS, yycolumn, yyline, yytext());}
-","       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ,"); return new Symbol(sym.COMA, yycolumn, yyline, yytext());}
-"("       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ("); return new Symbol(sym.PARENTESIS_A, yycolumn, yyline, yytext());}
-")"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: )"); return new Symbol(sym.PARENTESIS_C, yycolumn, yyline, yytext());}
-";"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ;"); return new Symbol(sym.PUNTOYCOMA, yycolumn, yyline, yytext());}
-"="       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ="); return new Symbol(sym.IGUAL, yycolumn, yyline, yytext());}
-"<"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: <"); return new Symbol(sym.MENOR, yycolumn, yyline, yytext());}
-">"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: >"); return new Symbol(sym.MAYOR, yycolumn, yyline, yytext());}
-"["       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ["); return new Symbol(sym.CORCHETE_A, yycolumn, yyline, yytext());}
-"]"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: ]"); return new Symbol(sym.CORCHETE_C, yycolumn, yyline, yytext());}
-"-"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: -"); return new Symbol(sym.GUION, yycolumn, yyline, yytext());}
+":"       {Funciones.Instruccion.agregarTokens("Lexema: :"); return new Symbol(sym.DOSPUNTOS, yycolumn, yyline, yytext());}
+"::"      {Funciones.Instruccion.agregarTokens("Lexema: ::"); return new Symbol(sym.DOBLEDOSPUNTOS, yycolumn, yyline, yytext());}
+","       {Funciones.Instruccion.agregarTokens("Lexema: ,"); return new Symbol(sym.COMA, yycolumn, yyline, yytext());}
+"("       {Funciones.Instruccion.agregarTokens("Lexema: ("); return new Symbol(sym.PARENTESIS_A, yycolumn, yyline, yytext());}
+")"       {Funciones.Instruccion.agregarTokens("Lexema: )"); return new Symbol(sym.PARENTESIS_C, yycolumn, yyline, yytext());}
+";"       {Funciones.Instruccion.agregarTokens("Lexema: ;"); return new Symbol(sym.PUNTOYCOMA, yycolumn, yyline, yytext());}
+"="       {Funciones.Instruccion.agregarTokens("Lexema: ="); return new Symbol(sym.IGUAL, yycolumn, yyline, yytext());}
+"<"       {Funciones.Instruccion.agregarTokens("Lexema: <"); return new Symbol(sym.MENOR, yycolumn, yyline, yytext());}
+">"       {Funciones.Instruccion.agregarTokens("Lexema: >"); return new Symbol(sym.MAYOR, yycolumn, yyline, yytext());}
+"["       {Funciones.Instruccion.agregarTokens("Lexema: ["); return new Symbol(sym.CORCHETE_A, yycolumn, yyline, yytext());}
+"]"       {Funciones.Instruccion.agregarTokens("Lexema: ]"); return new Symbol(sym.CORCHETE_C, yycolumn, yyline, yytext());}
+"-"       {Funciones.Instruccion.agregarTokens("Lexema: -"); return new Symbol(sym.GUION, yycolumn, yyline, yytext());}
 "PROGRAM"       { return new Symbol(sym.PROGRAM, yycolumn, yyline, yytext());}
 "END PROGRAM"       { return new Symbol(sym.END_PROGRAM, yycolumn, yyline, yytext());}
 "console"       { return new Symbol(sym.CONSOLE, yycolumn, yyline, yytext());}
@@ -64,11 +65,10 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 "Varianza"       { return new Symbol(sym.VARIANZA, yycolumn, yyline, yytext());}
 "Max"       { return new Symbol(sym.MAX, yycolumn, yyline, yytext());}
 "Min"       { return new Symbol(sym.MIN, yycolumn, yyline, yytext());}
+"column"       { return new Symbol(sym.COLUMN, yycolumn, yyline, yytext());}
 
 
 //------> Operadores
-"+"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: +"); return new Symbol(sym.MAS, yycolumn, yyline, yytext());}
-"*"       {FuncionTokens.FuncionDeTokens.listaTokens.add("Lexema: *"); return new Symbol(sym.POR, yycolumn, yyline, yytext());}
 
 
 //------> Expresiones
@@ -84,4 +84,6 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 [ \t\r\n\f]     {/* Espacios en blanco se ignoran */}
 
 //------> Errores Léxicos 
-.           	{ System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn); }
+.           	{   Funciones.Instruccion.agregarError("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn); 
+                    System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn); 
+                }

@@ -190,4 +190,14 @@ public class Expresion {
         }
         return resultado;
     }
+    
+    public static void mostrarLista(String nombre, LinkedList<String> lista){
+        Funciones.Instruccion.agregarTexto("------------------------------------------------------------------\n");
+        Funciones.Instruccion.agregarTexto("\t"+nombre.toString()+"\n");
+        Funciones.Instruccion.agregarTexto("------------------------------------------------------------------\n");
+        lista.forEach((elemento) -> {
+            Funciones.Instruccion.agregarTexto(elemento.toString()+"\n");
+        });
+        Funciones.Instruccion.agregarTexto("\n");
+    }
 }
