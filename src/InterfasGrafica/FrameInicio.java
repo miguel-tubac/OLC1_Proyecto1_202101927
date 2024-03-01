@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package InterfasGrafica;
 
 import java.awt.BorderLayout;
@@ -15,18 +12,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.LinkedList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -39,6 +39,9 @@ public class FrameInicio extends javax.swing.JFrame {
      */
     
     public String nombreArchivo = "";
+    private static int indiceGraficaActual = 0;
+    private static LinkedList<JFreeChart> graficas = new LinkedList<>();
+    private static LinkedList<String> titulos = new LinkedList<>();
     
     public FrameInicio() {
         initComponents();
@@ -97,6 +100,9 @@ public class FrameInicio extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        jPanelGraficas = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -117,6 +123,33 @@ public class FrameInicio extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("CONSOLA:");
 
+        jPanelGraficas.setPreferredSize(new java.awt.Dimension(500, 450));
+
+        javax.swing.GroupLayout jPanelGraficasLayout = new javax.swing.GroupLayout(jPanelGraficas);
+        jPanelGraficas.setLayout(jPanelGraficasLayout);
+        jPanelGraficasLayout.setHorizontalGroup(
+            jPanelGraficasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+        jPanelGraficasLayout.setVerticalGroup(
+            jPanelGraficasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+        );
+
+        jButton1.setText("◀️");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("▶️");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -127,7 +160,15 @@ public class FrameInicio extends javax.swing.JFrame {
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1))
-                .addContainerGap(710, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelGraficas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(118, 118, 118)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)))
+                .addGap(78, 78, 78))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,6 +180,14 @@ public class FrameInicio extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelGraficas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(71, 71, 71))
         );
 
         jMenu1.setText("Archivo");
@@ -255,12 +304,17 @@ public class FrameInicio extends javax.swing.JFrame {
             Funciones.Instruccion.reiniciarTokens();//Reinicia los tokens
             Funciones.Instruccion.reiniciarTablaDeSimbolos();//Reinicia la tabla de simbolos
             Funciones.Instruccion.reiniciarErrores();//Reinicia la tabla de Errores
+            jPanelGraficas.removeAll();//Reinica la vista de graficas
+            titulos.clear();
+            graficas.clear();
+            indiceGraficaActual = 0;
+            
             //ejemplo de utilizacion de la funcion analizadores
             // primer atributo: ruta donde se encuentran los archivos flex y cup
             //Segundo paramentro el nombre del jflex al igual que el tercer parametro
             //Comente la llamada a la funcion ya que solo se debe de ejecutar una ves, para que genere los archivos .java en 
             //el paquete analizador
-
+            
             analizadores("src/Analizadores/", "Lexer.jflex", "Parser.cup");//------------------------------------------------------------- Aqui 1 
             
             //analizar(texto); //------------------------------------------------------------------------------- Aqui 2
@@ -385,6 +439,33 @@ public class FrameInicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Boton Anterior de Graficas:
+        if (indiceGraficaActual > 0) {
+            indiceGraficaActual--;
+            mostrarGrafica(indiceGraficaActual, jPanelGraficas);
+        } else {
+            //"No hay gráficas anteriores disponibles
+            //System.out.println("Inicio no hay mas graficas");
+            indiceGraficaActual = graficas.size() - 1;
+            mostrarGrafica(indiceGraficaActual, jPanelGraficas);
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Boton de siguiente en la grafica:
+        if (indiceGraficaActual < graficas.size() - 1) {
+            indiceGraficaActual++;
+            mostrarGrafica(indiceGraficaActual, jPanelGraficas);
+        } else {
+            //"No hay más gráficas disponibles."
+            //System.out.println("No hay más gráficas disponibles");
+            indiceGraficaActual = 0;
+            mostrarGrafica(indiceGraficaActual, jPanelGraficas);
+        }        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     //Generador de Analizadores, la cual se encutra en el repo
     public static void analizadores(String ruta, String jflexFile, String cupFile){
         try {
@@ -507,9 +588,69 @@ public class FrameInicio extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Guardado cancelado por el usuario.", "Guardado Cancelado", JOptionPane.WARNING_MESSAGE);
         }
-    }  
+    }
     
     
+    //metodo para "Generar las graficas de barras": 
+    public static void barras(String Titulo, String TituloX, String TituloY, LinkedList<String> valores, LinkedList<String> ejex) {
+        try {
+            // Convertir valores de String a Double
+            LinkedList<Double> valoresDoubles = new LinkedList<>();
+            for (String str : valores) {
+                try {
+                    Double valor = Double.parseDouble(str);
+                    valoresDoubles.add(valor);
+                } catch (NumberFormatException e) {
+                    Funciones.Instruccion.agregarError("Error al convertir string a double en el metodo Barras con el valor: " + str);
+                    // Puedes manejar el error aquí, si un elemento no es un número válido
+                }
+            }
+
+            //Ingreso de datos
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+            for (int i = 0; i < valoresDoubles.size(); i++) {
+                dataset.addValue(valoresDoubles.get(i), "Valor", ejex.get(i));
+            }
+
+            // Creación de gráfica
+            JFreeChart grafica
+                    = ChartFactory.createBarChart(
+                            Titulo, //TITULO
+                            TituloX, TituloY,
+                            dataset,
+                            PlotOrientation.VERTICAL,
+                            true, true, true);
+
+            graficas.add(grafica);
+            titulos.add(Titulo);
+
+            // Mostrar
+            mostrarGrafica(indiceGraficaActual, jPanelGraficas);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    // Metodo para mostrar las graficas:
+    private static void mostrarGrafica(int indice, JPanel jPanelGraficas) {
+        JFreeChart grafica = graficas.get(indice);
+        String titulo = titulos.get(indice);
+
+        ChartPanel panelBarras = new ChartPanel(grafica);
+        panelBarras.setPreferredSize(new java.awt.Dimension(450, 500));
+        panelBarras.setMouseWheelEnabled(true);
+
+        jPanelGraficas.removeAll();
+        jPanelGraficas.setLayout(new BorderLayout());
+        jPanelGraficas.add(panelBarras, BorderLayout.NORTH);
+        jPanelGraficas.revalidate();
+        jPanelGraficas.repaint();
+
+        //System.out.println("Mostrando gráfica: " + titulo);
+    }
+
     
     /**
      * @param args the command line arguments
@@ -547,6 +688,8 @@ public class FrameInicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -558,6 +701,7 @@ public class FrameInicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
+    public static javax.swing.JPanel jPanelGraficas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;

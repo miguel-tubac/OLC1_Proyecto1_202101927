@@ -66,6 +66,14 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 "Max"       { return new Symbol(sym.MAX, yycolumn, yyline, yytext());}
 "Min"       { return new Symbol(sym.MIN, yycolumn, yyline, yytext());}
 "column"       { return new Symbol(sym.COLUMN, yycolumn, yyline, yytext());}
+//Grafica de barras
+"graphBar"       { return new Symbol(sym.GRAPHBAR, yycolumn, yyline, yytext());}
+"titulo"       { return new Symbol(sym.TITULO, yycolumn, yyline, yytext());}
+"ejeX"       { return new Symbol(sym.EJEX, yycolumn, yyline, yytext());}
+"ejeY"       { return new Symbol(sym.EJEY, yycolumn, yyline, yytext());}
+"tituloX"       { return new Symbol(sym.TITULOX, yycolumn, yyline, yytext());}
+"tituloY"       { return new Symbol(sym.TITULOY, yycolumn, yyline, yytext());}
+"EXEC"       { return new Symbol(sym.EXEC, yycolumn, yyline, yytext());}
 
 
 //------> Operadores

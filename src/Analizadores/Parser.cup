@@ -3,6 +3,7 @@ package Analizadores;
 
 import java_cup.runtime.*;
 import java.util.LinkedList;
+import InterfasGrafica.FrameInicio;
 
 
 //------> Codigo para el parser
@@ -47,6 +48,7 @@ terminal String CHAR, DOUBLE, VAR, ARR;
 terminal String SUM, RES, MUL, DIV, MOD;
 terminal String MEDIA, MEDIANA, MODA, VARIANZA, MAX, MIN;
 terminal String COLUMN;
+terminal String GRAPHBAR, TITULO, EJEX, EJEY, TITULOX, TITULOY, EXEC;
 
 
 
@@ -62,6 +64,7 @@ non terminal arreglos, listaelemen;
 non terminal operacionsum, operacionres, operacionmul, operaciondiv, operacionmod;
 non terminal operacionmedia, operacionmediana, operacionmoda, operacionvarianza, operacionmax, operacionmin;
 non terminal imprimir_arreglo;
+non terminal graficas, grafica_barras, nomostrar_grafica_barras;
 
 //------> PRECEDENCIA
 precedence left COMA, PARENTESIS_A, CORCHETE_A, CORCHETE_C, PARENTESIS_C;
@@ -84,6 +87,7 @@ lista_instrucciones ::=   lista_instrucciones instruccion
 instruccion ::= imprimir_consola 
     | variables
     | arreglos
+    | graficas
     | error PUNTOYCOMA
 ;
 
@@ -229,6 +233,25 @@ listaelemen ::= listaelemen:listexp COMA expresion:exp1
     :}
 ;
 
+graficas ::= GRAPHBAR PARENTESIS_A grafica_barras EXEC GRAPHBAR END PUNTOYCOMA PARENTESIS_C END PUNTOYCOMA
+    | GRAPHBAR PARENTESIS_A nomostrar_grafica_barras GRAPHBAR END PUNTOYCOMA PARENTESIS_C END PUNTOYCOMA
+    | GRAPHBAR PARENTESIS_A nomostrar_grafica_barras PARENTESIS_C END PUNTOYCOMA
+;
+
+grafica_barras ::= TITULO DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:exp1 END PUNTOYCOMA
+                EJEX DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A listaelemen:lista1 CORCHETE_C END PUNTOYCOMA
+                EJEY DOBLEDOSPUNTOS DOUBLE IGUAL CORCHETE_A listaelemen:lista2 CORCHETE_C END PUNTOYCOMA
+                TITULOX DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:exp2 END PUNTOYCOMA
+                TITULOY DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:exp3 END PUNTOYCOMA
+                {: FrameInicio.barras(exp1.toString(), exp2.toString(), exp3.toString(), (LinkedList<String>) lista2, (LinkedList<String>) lista1); :}
+;
+
+nomostrar_grafica_barras ::= TITULO DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion END PUNTOYCOMA
+                EJEX DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A listaelemen CORCHETE_C END PUNTOYCOMA
+                EJEY DOBLEDOSPUNTOS DOUBLE IGUAL CORCHETE_A listaelemen CORCHETE_C END PUNTOYCOMA
+                TITULOX DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion END PUNTOYCOMA
+                TITULOY DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion END PUNTOYCOMA
+;
 
 expresion ::= NUMERODECIMAL:val                                  {: RESULT = val.toString(); :}
     | ENTERO:val                                                 {: RESULT = val.toString(); :}

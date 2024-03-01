@@ -18,9 +18,15 @@ public class sym {
   public static final int DOUBLE = 23;
   public static final int CORCHETE_C = 21;
   public static final int CORCHETE_A = 20;
+  public static final int GRAPHBAR = 38;
+  public static final int TITULOY = 43;
+  public static final int TITULOX = 42;
   public static final int END_PROGRAM = 5;
+  public static final int EJEY = 41;
+  public static final int EJEX = 40;
   public static final int IGUAL = 14;
   public static final int COLUMN = 37;
+  public static final int TITULO = 39;
   public static final int DIV = 29;
   public static final int GUION = 19;
   public static final int MIN = 36;
@@ -42,6 +48,7 @@ public class sym {
   public static final int SUM = 26;
   public static final int ARR = 25;
   public static final int MEDIA = 31;
+  public static final int EXEC = 44;
   public static final int MAX = 35;
   public static final int VAR = 24;
   public static final int PRINT = 7;
@@ -84,7 +91,14 @@ public class sym {
   "VARIANZA",
   "MAX",
   "MIN",
-  "COLUMN"
+  "COLUMN",
+  "GRAPHBAR",
+  "TITULO",
+  "EJEX",
+  "EJEY",
+  "TITULOX",
+  "TITULOY",
+  "EXEC"
   };
 }
 
