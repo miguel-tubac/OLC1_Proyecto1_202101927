@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.HashMap;
 import java.util.LinkedList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -22,7 +23,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -42,6 +42,9 @@ public class FrameInicio extends javax.swing.JFrame {
     private static int indiceGraficaActual = 0;
     private static LinkedList<JFreeChart> graficas = new LinkedList<>();
     private static LinkedList<String> titulos = new LinkedList<>();
+    
+    //Esta es donde se alamcenan los valores de la grafica de barras
+    public static HashMap<String, Object> graficasBarras = new HashMap<>();
     
     public FrameInicio() {
         initComponents();
@@ -123,17 +126,17 @@ public class FrameInicio extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("CONSOLA:");
 
-        jPanelGraficas.setPreferredSize(new java.awt.Dimension(500, 450));
+        jPanelGraficas.setPreferredSize(new java.awt.Dimension(520, 490));
 
         javax.swing.GroupLayout jPanelGraficasLayout = new javax.swing.GroupLayout(jPanelGraficas);
         jPanelGraficas.setLayout(jPanelGraficasLayout);
         jPanelGraficasLayout.setHorizontalGroup(
             jPanelGraficasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGap(0, 520, Short.MAX_VALUE)
         );
         jPanelGraficasLayout.setVerticalGroup(
             jPanelGraficasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
 
         jButton1.setText("◀️");
@@ -160,7 +163,7 @@ public class FrameInicio extends javax.swing.JFrame {
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelGraficas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -308,6 +311,8 @@ public class FrameInicio extends javax.swing.JFrame {
             titulos.clear();
             graficas.clear();
             indiceGraficaActual = 0;
+            
+            reiniciarGraficaBarras();//Reinicia los valores para la grafica de barras
             
             //ejemplo de utilizacion de la funcion analizadores
             // primer atributo: ruta donde se encuentran los archivos flex y cup
@@ -590,6 +595,49 @@ public class FrameInicio extends javax.swing.JFrame {
         }
     }
     
+    //Metodo que agrega valores al areglo de barras
+    public static void agregarValor(String clave, Object valor) {
+        if (clave != null && valor != null) {
+            graficasBarras.put(clave, valor);
+        } else {
+            System.err.println("Error: No se puede agregar un valor nulo a la graficasBarras.");
+            Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasBarras.");
+        }
+    }
+    
+    // Método para reiniciar la tabla de simbolos
+    public static void reiniciarGraficaBarras() {
+        graficasBarras.clear();
+    }
+    
+    // Generacion de las variables para la grafica de barras
+    public static void recorrerParametrosGrafica(){
+        String Titulo = String.valueOf(graficasBarras.get("titulo")); 
+        String TituloX = String.valueOf(graficasBarras.get("tituloX")); 
+        String TituloY = String.valueOf(graficasBarras.get("tituloY")); 
+        LinkedList<String> valores = (LinkedList<String>) graficasBarras.get("ejeY"); 
+        LinkedList<String> ejex = (LinkedList<String>) graficasBarras.get("ejeX"); 
+        
+        if (Titulo == null){
+            Titulo = "Vacillo";
+        }
+        if (TituloX == null){
+            TituloX = "Vacillo";
+        }
+        if (TituloY == null){
+            TituloX = "Vacillo";
+        }
+        if (valores == null){
+            valores = new LinkedList<>();
+        }
+        if (ejex == null){
+            ejex = new LinkedList<>();
+        }
+        
+        //llamo al metodo de creacion de la grafica de barras
+        barras(Titulo, TituloX, TituloY, valores, ejex);
+    }
+    
     
     //metodo para "Generar las graficas de barras": 
     public static void barras(String Titulo, String TituloX, String TituloY, LinkedList<String> valores, LinkedList<String> ejex) {
@@ -639,7 +687,7 @@ public class FrameInicio extends javax.swing.JFrame {
         String titulo = titulos.get(indice);
 
         ChartPanel panelBarras = new ChartPanel(grafica);
-        panelBarras.setPreferredSize(new java.awt.Dimension(450, 500));
+        panelBarras.setPreferredSize(new java.awt.Dimension(450, 490));
         panelBarras.setMouseWheelEnabled(true);
 
         jPanelGraficas.removeAll();
