@@ -74,6 +74,10 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 "tituloX"       { return new Symbol(sym.TITULOX, yycolumn, yyline, yytext());}
 "tituloY"       { return new Symbol(sym.TITULOY, yycolumn, yyline, yytext());}
 "EXEC"       { return new Symbol(sym.EXEC, yycolumn, yyline, yytext());}
+//Grafica de Pie
+"graphPie"       { return new Symbol(sym.GRAPHPIE, yycolumn, yyline, yytext());}
+"label"       { return new Symbol(sym.LABEL, yycolumn, yyline, yytext());}
+"values"       { return new Symbol(sym.VALUES, yycolumn, yyline, yytext());}
 
 
 //------> Operadores

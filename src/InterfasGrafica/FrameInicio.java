@@ -23,10 +23,12 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -45,6 +47,8 @@ public class FrameInicio extends javax.swing.JFrame {
     
     //Esta es donde se alamcenan los valores de la grafica de barras
     public static HashMap<String, Object> graficasBarras = new HashMap<>();
+    //Esta es donde se alamcenan los valores de la grafica de Pie
+    public static HashMap<String, Object> graficasPie = new HashMap<>();
     
     public FrameInicio() {
         initComponents();
@@ -313,6 +317,7 @@ public class FrameInicio extends javax.swing.JFrame {
             indiceGraficaActual = 0;
             
             reiniciarGraficaBarras();//Reinicia los valores para la grafica de barras
+            reiniciarGraficaPie();//Reinicia los valores de las graficas de Pie
             
             //ejemplo de utilizacion de la funcion analizadores
             // primer atributo: ruta donde se encuentran los archivos flex y cup
@@ -320,9 +325,9 @@ public class FrameInicio extends javax.swing.JFrame {
             //Comente la llamada a la funcion ya que solo se debe de ejecutar una ves, para que genere los archivos .java en 
             //el paquete analizador
             
-            analizadores("src/Analizadores/", "Lexer.jflex", "Parser.cup");//------------------------------------------------------------- Aqui 1 
+            //analizadores("src/Analizadores/", "Lexer.jflex", "Parser.cup");//------------------------------------------------------------- Aqui 1 
             
-            //analizar(texto); //------------------------------------------------------------------------------- Aqui 2
+            analizar(texto); //------------------------------------------------------------------------------- Aqui 2
             //Se ingresa el texto a la consola sin comillas
             String consola2 = Funciones.Instruccion.consola.replace("\"", "");
             jTextArea1.setText(consola2);
@@ -605,7 +610,7 @@ public class FrameInicio extends javax.swing.JFrame {
         }
     }
     
-    // Método para reiniciar la tabla de simbolos
+    // Método para reiniciar las graficas de Barras
     public static void reiniciarGraficaBarras() {
         graficasBarras.clear();
     }
@@ -679,6 +684,82 @@ public class FrameInicio extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    
+    // Generacion de las variables para la grafica de barras
+    public static void recorrerParametrosGraficaPie(){
+        String Titulo = String.valueOf(graficasPie.get("titulo")); 
+        LinkedList<String> valores = (LinkedList<String>) graficasPie.get("values"); 
+        LinkedList<String> ejex = (LinkedList<String>) graficasPie.get("label"); 
+        
+        if (Titulo == null){
+            Titulo = "Vacillo";
+        }
+        if (valores == null){
+            valores = new LinkedList<>();
+        }
+        if (ejex == null){
+            ejex = new LinkedList<>();
+        }
+        
+        //llamo al metodo de creacion de la grafica de barras
+        Pie(Titulo, valores, ejex);
+    }
+    
+    
+    //Metodo que agrega valores al areglo de barras
+    public static void agregarValorPie(String clave, Object valor) {
+        if (clave != null && valor != null) {
+            graficasPie.put(clave, valor);
+        } else {
+            System.err.println("Error: No se puede agregar un valor nulo a la graficasBarras.");
+            Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasValorPie.");
+        }
+    }
+    
+    // Método para reiniciar las graficas de Pie
+    public static void reiniciarGraficaPie() {
+        graficasPie.clear();
+    }
+    
+    //Metdo para la creacion de la grafica de Pie
+    public static void Pie(String Titulo, LinkedList<String> valores, LinkedList<String> ejex ){
+        try {
+            // Convertir valores de String a Double
+            LinkedList<Double> valoresDoubles = new LinkedList<>();
+            for (String str : valores) {
+                try {
+                    Double valor = Double.parseDouble(str);
+                    valoresDoubles.add(valor);
+                } catch (NumberFormatException e) {
+                    Funciones.Instruccion.agregarError("Error al convertir string a double en el metodo Pie con el valor: " + str);
+                    System.out.println("Error al convertir string a double en el metodo Pie con el valor: " + str);
+                    // Puedes manejar el error aquí, si un elemento no es un número válido
+                }
+            }
+        
+            //Ingreso de datos
+            DefaultPieDataset dataset = new DefaultPieDataset( );
+
+            for (int i = 0; i < Math.min(5, Math.min(ejex.size(), valoresDoubles.size())); i++) {
+                dataset.setValue(ejex.get(i), valoresDoubles.get(i));
+            }
+            // Creación de gráfica
+            JFreeChart grafica = 
+                ChartFactory.createPieChart(Titulo, dataset);
+            
+            //Adicion de la grafica a la lista:
+            graficas.add(grafica);
+            titulos.add(Titulo);
+
+            // Mostrar
+            mostrarGrafica(indiceGraficaActual, jPanelGraficas);
+        
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error en el cath");
+        }          
     }
     
     // Metodo para mostrar las graficas:

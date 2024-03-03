@@ -15,6 +15,7 @@ public class sym {
   public static final int PUNTOYCOMA = 13;
   public static final int RES = 27;
   public static final int ENTERO = 2;
+  public static final int GRAPHPIE = 45;
   public static final int DOUBLE = 23;
   public static final int CORCHETE_C = 21;
   public static final int CORCHETE_A = 20;
@@ -37,6 +38,7 @@ public class sym {
   public static final int PROGRAM = 4;
   public static final int MUL = 28;
   public static final int COMA = 12;
+  public static final int VALUES = 47;
   public static final int MENOR = 17;
   public static final int MODA = 33;
   public static final int MOD = 30;
@@ -49,6 +51,7 @@ public class sym {
   public static final int ARR = 25;
   public static final int MEDIA = 31;
   public static final int EXEC = 44;
+  public static final int LABEL = 46;
   public static final int MAX = 35;
   public static final int VAR = 24;
   public static final int PRINT = 7;
@@ -98,7 +101,10 @@ public class sym {
   "EJEY",
   "TITULOX",
   "TITULOY",
-  "EXEC"
+  "EXEC",
+  "GRAPHPIE",
+  "LABEL",
+  "VALUES"
   };
 }
 

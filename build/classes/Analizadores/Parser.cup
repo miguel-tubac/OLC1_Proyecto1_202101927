@@ -49,6 +49,7 @@ terminal String SUM, RES, MUL, DIV, MOD;
 terminal String MEDIA, MEDIANA, MODA, VARIANZA, MAX, MIN;
 terminal String COLUMN;
 terminal String GRAPHBAR, TITULO, EJEX, EJEY, TITULOX, TITULOY, EXEC;
+terminal String GRAPHPIE, LABEL, VALUES;
 
 
 
@@ -65,6 +66,7 @@ non terminal operacionsum, operacionres, operacionmul, operaciondiv, operacionmo
 non terminal operacionmedia, operacionmediana, operacionmoda, operacionvarianza, operacionmax, operacionmin;
 non terminal imprimir_arreglo;
 non terminal graficas, grafica_barras, repeticion_parametros;
+non terminal grafica_pie, repeticion_parametros_pie;
 
 //------> PRECEDENCIA
 precedence left COMA, PARENTESIS_A, CORCHETE_A, CORCHETE_C, PARENTESIS_C;
@@ -239,10 +241,20 @@ graficas ::= GRAPHBAR PARENTESIS_A grafica_barras EXEC GRAPHBAR END PUNTOYCOMA P
         {: FrameInicio.reiniciarGraficaBarras();  :}
     | GRAPHBAR PARENTESIS_A grafica_barras PARENTESIS_C END PUNTOYCOMA
         {: FrameInicio.reiniciarGraficaBarras(); :}
+    | GRAPHPIE PARENTESIS_A grafica_pie EXEC GRAPHPIE END PUNTOYCOMA PARENTESIS_C END PUNTOYCOMA
+        {: FrameInicio.recorrerParametrosGraficaPie(); :}
+    | GRAPHPIE PARENTESIS_A grafica_pie GRAPHPIE END PUNTOYCOMA PARENTESIS_C END PUNTOYCOMA
+        {: FrameInicio.reiniciarGraficaPie(); :}
+    | GRAPHPIE PARENTESIS_A grafica_pie PARENTESIS_C END PUNTOYCOMA
+        {: FrameInicio.reiniciarGraficaPie(); :}
 ;
 
 grafica_barras ::= grafica_barras repeticion_parametros
     | repeticion_parametros
+;
+
+grafica_pie ::= grafica_pie repeticion_parametros_pie
+    | repeticion_parametros_pie
 ;
 
 repeticion_parametros ::= TITULO DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:exp1 END PUNTOYCOMA
@@ -257,6 +269,14 @@ repeticion_parametros ::= TITULO DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL
         {: FrameInicio.agregarValor("tituloY", exp3.toString()); :}
 ;
 
+
+repeticion_parametros_pie ::= LABEL DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL  CORCHETE_A listaelemen:lista1 CORCHETE_C END PUNTOYCOMA
+        {: FrameInicio.agregarValorPie("label", (LinkedList<String>) lista1); :}
+    | VALUES DOBLEDOSPUNTOS DOUBLE IGUAL CORCHETE_A listaelemen:lista2 CORCHETE_C END PUNTOYCOMA
+        {: FrameInicio.agregarValorPie("values", (LinkedList<String>) lista2); :}
+    | TITULO DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:exp2 END PUNTOYCOMA
+        {: FrameInicio.agregarValorPie("titulo", exp2.toString()); :}
+;
 
 expresion ::= NUMERODECIMAL:val                                  {: RESULT = val.toString(); :}
     | ENTERO:val                                                 {: RESULT = val.toString(); :}
