@@ -80,6 +80,8 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 "values"       { return new Symbol(sym.VALUES, yycolumn, yyline, yytext());}
 //Grafica de Linea
 "graphLine"       { return new Symbol(sym.GRAPHLINE, yycolumn, yyline, yytext());}
+//Grafica de Histograma
+"Histogram"       { return new Symbol(sym.HISTOGRAM, yycolumn, yyline, yytext());}
 
 
 //------> Operadores

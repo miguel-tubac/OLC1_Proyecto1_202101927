@@ -51,6 +51,7 @@ terminal String COLUMN;
 terminal String GRAPHBAR, TITULO, EJEX, EJEY, TITULOX, TITULOY, EXEC;
 terminal String GRAPHPIE, LABEL, VALUES;
 terminal String GRAPHLINE;
+terminal String HISTOGRAM;
 
 
 
@@ -69,6 +70,7 @@ non terminal imprimir_arreglo;
 non terminal graficas, grafica_barras, repeticion_parametros;
 non terminal grafica_pie, repeticion_parametros_pie;
 non terminal grafica_line, repeticion_parametros_line;
+non terminal grafica_histogram, repeticion_parametros_histogram;
 
 //------> PRECEDENCIA
 precedence left COMA, PARENTESIS_A, CORCHETE_A, CORCHETE_C, PARENTESIS_C;
@@ -243,18 +245,27 @@ graficas ::= GRAPHBAR PARENTESIS_A grafica_barras EXEC GRAPHBAR END PUNTOYCOMA P
         {: FrameInicio.reiniciarGraficaBarras();  :}
     | GRAPHBAR PARENTESIS_A grafica_barras PARENTESIS_C END PUNTOYCOMA
         {: FrameInicio.reiniciarGraficaBarras(); :}
+    //Grafica de Pie
     | GRAPHPIE PARENTESIS_A grafica_pie EXEC GRAPHPIE END PUNTOYCOMA PARENTESIS_C END PUNTOYCOMA
         {: FrameInicio.recorrerParametrosGraficaPie(); :}
     | GRAPHPIE PARENTESIS_A grafica_pie GRAPHPIE END PUNTOYCOMA PARENTESIS_C END PUNTOYCOMA
         {: FrameInicio.reiniciarGraficaPie(); :}
     | GRAPHPIE PARENTESIS_A grafica_pie PARENTESIS_C END PUNTOYCOMA
         {: FrameInicio.reiniciarGraficaPie(); :}
+    //Grafica de Linea
     | GRAPHLINE PARENTESIS_A grafica_line EXEC GRAPHLINE END PUNTOYCOMA PARENTESIS_C END PUNTOYCOMA
         {: FrameInicio.recorrerParametrosGraficaLinea(); :}
     | GRAPHLINE PARENTESIS_A grafica_line GRAPHLINE END PUNTOYCOMA PARENTESIS_C END PUNTOYCOMA
         {: FrameInicio.reiniciarGraficaLinea(); :}
     | GRAPHLINE PARENTESIS_A grafica_line PARENTESIS_C END PUNTOYCOMA
         {: FrameInicio.reiniciarGraficaLinea(); :}
+    //Grafica de Histogram
+    | HISTOGRAM PARENTESIS_A grafica_histogram EXEC HISTOGRAM END PUNTOYCOMA PARENTESIS_C END PUNTOYCOMA
+        {: FrameInicio.recorrerParametrosGraficaHistogram(); :}
+    | HISTOGRAM PARENTESIS_A grafica_histogram HISTOGRAM END PUNTOYCOMA PARENTESIS_C END PUNTOYCOMA
+        {: FrameInicio.reiniciarGraficaHistogram(); :}
+    | HISTOGRAM PARENTESIS_A grafica_histogram PARENTESIS_C END PUNTOYCOMA
+        {: FrameInicio.reiniciarGraficaHistogram(); :}
 ;
 
 grafica_barras ::= grafica_barras repeticion_parametros
@@ -269,12 +280,20 @@ grafica_line ::= grafica_line repeticion_parametros_line
     | repeticion_parametros_line
 ;
 
+grafica_histogram ::= grafica_histogram repeticion_parametros_histogram
+    | repeticion_parametros_histogram
+;
+
 repeticion_parametros ::= TITULO DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:exp1 END PUNTOYCOMA
         {: FrameInicio.agregarValor("titulo", exp1.toString()); :}
     | EJEX DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A listaelemen:lista1 CORCHETE_C END PUNTOYCOMA
         {: FrameInicio.agregarValor("ejeX", (LinkedList<String>) lista1); :}
+    | EJEX DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:lista11 END PUNTOYCOMA
+        {: FrameInicio.agregarValor("ejeX", (LinkedList<String>) lista11); :}
     | EJEY DOBLEDOSPUNTOS DOUBLE IGUAL CORCHETE_A listaelemen:lista2 CORCHETE_C END PUNTOYCOMA
         {: FrameInicio.agregarValor("ejeY", (LinkedList<String>) lista2); :}
+    | EJEY DOBLEDOSPUNTOS DOUBLE IGUAL expresion:lista22 END PUNTOYCOMA
+        {: FrameInicio.agregarValor("ejeY", (LinkedList<String>) lista22); :}
     | TITULOX DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:exp2 END PUNTOYCOMA
         {: FrameInicio.agregarValor("tituloX", exp2.toString()); :}
     | TITULOY DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:exp3 END PUNTOYCOMA
@@ -284,8 +303,12 @@ repeticion_parametros ::= TITULO DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL
 
 repeticion_parametros_pie ::= LABEL DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL  CORCHETE_A listaelemen:lista1 CORCHETE_C END PUNTOYCOMA
         {: FrameInicio.agregarValorPie("label", (LinkedList<String>) lista1); :}
+    | LABEL DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:lista11 END PUNTOYCOMA
+        {: FrameInicio.agregarValorPie("label", (LinkedList<String>) lista11); :}
     | VALUES DOBLEDOSPUNTOS DOUBLE IGUAL CORCHETE_A listaelemen:lista2 CORCHETE_C END PUNTOYCOMA
         {: FrameInicio.agregarValorPie("values", (LinkedList<String>) lista2); :}
+    | VALUES DOBLEDOSPUNTOS DOUBLE IGUAL expresion:lista22 END PUNTOYCOMA
+        {: FrameInicio.agregarValorPie("values", (LinkedList<String>) lista22); :}
     | TITULO DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:exp2 END PUNTOYCOMA
         {: FrameInicio.agregarValorPie("titulo", exp2.toString()); :}
 ;
@@ -294,12 +317,24 @@ repeticion_parametros_line ::= TITULO DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C 
         {: FrameInicio.agregarValorLine("titulo", exp1.toString()); :}
     | EJEX DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A listaelemen:lista1 CORCHETE_C END PUNTOYCOMA
         {: FrameInicio.agregarValorLine("ejeX", (LinkedList<String>) lista1); :}
+    | EJEX DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:lista11 END PUNTOYCOMA
+        {: FrameInicio.agregarValorLine("ejeX", (LinkedList<String>) lista11); :}
     | EJEY DOBLEDOSPUNTOS DOUBLE IGUAL CORCHETE_A listaelemen:lista2 CORCHETE_C END PUNTOYCOMA
         {: FrameInicio.agregarValorLine("ejeY", (LinkedList<String>) lista2); :}
+    | EJEY DOBLEDOSPUNTOS DOUBLE IGUAL expresion:lista22 END PUNTOYCOMA
+        {: FrameInicio.agregarValorLine("ejeY", (LinkedList<String>) lista22); :}
     | TITULOX DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:exp2 END PUNTOYCOMA
         {: FrameInicio.agregarValorLine("tituloX", exp2.toString()); :}
     | TITULOY DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:exp3 END PUNTOYCOMA
         {: FrameInicio.agregarValorLine("tituloY", exp3.toString()); :}
+;
+
+repeticion_parametros_histogram ::= TITULO DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL expresion:exp1 END PUNTOYCOMA
+        {: FrameInicio.agregarValorHistogram("titulo", exp1.toString()); :}
+    | VALUES DOBLEDOSPUNTOS DOUBLE IGUAL CORCHETE_A listaelemen:lista2 CORCHETE_C END PUNTOYCOMA
+        {: FrameInicio.agregarValorHistogram("values", (LinkedList<String>) lista2); :}
+    | VALUES DOBLEDOSPUNTOS DOUBLE IGUAL expresion:lista22 END PUNTOYCOMA
+        {: FrameInicio.agregarValorHistogram("values", (LinkedList<String>) lista22); :}
 ;
 
 expresion ::= NUMERODECIMAL:val                                  {: RESULT = val.toString(); :}

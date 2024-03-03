@@ -50,6 +50,8 @@ public class FrameInicio extends javax.swing.JFrame {
     public static HashMap<String, Object> graficasPie = new HashMap<>();
     //Esta es donde se alamcenan los valores de la grafica de Line
     public static HashMap<String, Object> graficasLine = new HashMap<>();
+    //Esta es donde se alamcenan los valores de las calculos de Histgram
+    public static HashMap<String, Object> graficasHistogram = new HashMap<>();
     
     public FrameInicio() {
         initComponents();
@@ -312,6 +314,7 @@ public class FrameInicio extends javax.swing.JFrame {
             Funciones.Instruccion.reiniciarTokens();//Reinicia los tokens
             Funciones.Instruccion.reiniciarTablaDeSimbolos();//Reinicia la tabla de simbolos
             Funciones.Instruccion.reiniciarErrores();//Reinicia la tabla de Errores
+            Funciones.Expresion.reinicioDeDatosParaEstadisticas();//Se reinicia los valores para la grafica del Histograma
             jPanelGraficas.removeAll();//Reinica la vista de graficas
             titulos.clear();
             graficas.clear();
@@ -320,6 +323,7 @@ public class FrameInicio extends javax.swing.JFrame {
             reiniciarGraficaBarras();//Reinicia los valores para la grafica de barras
             reiniciarGraficaPie();//Reinicia los valores de las graficas de Pie
             reiniciarGraficaLinea();//Reinicio de los valores de la grafica de Linea
+            reiniciarGraficaHistogram();//Reinicia la grafica Histrogram
             
             //ejemplo de utilizacion de la funcion analizadores
             // primer atributo: ruta donde se encuentran los archivos flex y cup
@@ -327,9 +331,9 @@ public class FrameInicio extends javax.swing.JFrame {
             //Comente la llamada a la funcion ya que solo se debe de ejecutar una ves, para que genere los archivos .java en 
             //el paquete analizador
             
-            //analizadores("src/Analizadores/", "Lexer.jflex", "Parser.cup");//------------------------------------------------------------- Aqui 1 
+            analizadores("src/Analizadores/", "Lexer.jflex", "Parser.cup");//------------------------------------------------------------- Aqui 1 
             
-            analizar(texto); //------------------------------------------------------------------------------- Aqui 2
+            //analizar(texto); //------------------------------------------------------------------------------- Aqui 2
             //Se ingresa el texto a la consola sin comillas
             String consola2 = Funciones.Instruccion.consola.replace("\"", "");
             jTextArea1.setText(consola2);
@@ -862,6 +866,92 @@ public class FrameInicio extends javax.swing.JFrame {
             e.printStackTrace();
         } 
     }
+    
+    
+    //Metodo que agrega valores al areglo de Histogram
+    public static void agregarValorHistogram(String clave, Object valor) {
+        if (clave != null && valor != null) {
+            graficasHistogram.put(clave, valor);
+        } else {
+            //System.err.println("Error: No se puede agregar un valor nulo a la graficasValorHistogram.");
+            Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasValorHistogram.");
+        }
+    }
+    
+    // Método para reiniciar las graficas de Histogram
+    public static void reiniciarGraficaHistogram() {
+        graficasHistogram.clear();
+    }
+    
+    
+    // Generacion de las variables para la grafica de Histogram
+    public static void recorrerParametrosGraficaHistogram(){
+        String Titulo = String.valueOf(graficasHistogram.get("titulo")).replace("\"", ""); 
+        LinkedList<String> valores = (LinkedList<String>) graficasHistogram.get("values"); 
+        
+        if (Titulo == null){
+            Titulo = "Vacillo";
+        }
+        if (valores == null){
+            valores = new LinkedList<>();
+        }
+        
+        //llamo al metodo de creacion de la grafica de barras
+        Funciones.Expresion.calcularEstadisticas(valores, Titulo);
+    }
+    
+    
+    //metodo para "Generar las graficas de barras": 
+    public static void barrasHistogram(String Titulo, LinkedList<Double> valores, LinkedList<Double> ejex) {
+        try {
+            if (valores.size() == ejex.size()){
+                
+                String TituloX = ""; 
+                String TituloY = "";
+                // Convertir valores de String a Double
+                LinkedList<String> datosEjeX = new LinkedList<>();
+                for (double valor : ejex) {
+                    try {
+                        String str = String.valueOf(valor);
+                        datosEjeX.add(str);
+                    } catch (NumberFormatException e) {
+                        Funciones.Instruccion.agregarError("Error al convertir double a string en el metodo barrasHistogram con el valor: " + valor);
+                    }
+                }
+            
+            
+                //Ingreso de datos
+                DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+                for (int i = 0; i < valores.size(); i++) {
+                    dataset.addValue(valores.get(i),"Valor", datosEjeX.get(i));
+                }
+
+                // Creación de gráfica
+                JFreeChart grafica
+                        = ChartFactory.createBarChart(
+                                Titulo, //TITULO
+                                TituloX, TituloY,
+                                dataset,
+                                PlotOrientation.VERTICAL,
+                                true, true, true);
+
+                graficas.add(grafica);
+                titulos.add(Titulo);
+
+                // Mostrar
+                mostrarGrafica(indiceGraficaActual, jPanelGraficas);
+            }else{
+                Funciones.Instruccion.agregarError("Error: barrasHistogram con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+                //System.out.println("Error: grafica Barras con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+                //reiniciarGraficaBarras();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     
     // Metodo para mostrar las graficas:
     private static void mostrarGrafica(int indice, JPanel jPanelGraficas) {

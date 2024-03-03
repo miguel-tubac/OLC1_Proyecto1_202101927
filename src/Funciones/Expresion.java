@@ -3,11 +3,17 @@ package Funciones;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
 
 public class Expresion {
+    // Lista donde se elamcenaran los valores
+    public static LinkedList<Double> listaValor = new LinkedList<>();
+    // Lista donde se elamcenaran las frecuancias
+    public static LinkedList<Double> listaFrecuencia = new LinkedList<>();
+    
     //Metodo para realizar la suma
     public static String suma (String izq, String der){
         String resultado = "";
@@ -199,5 +205,66 @@ public class Expresion {
             Funciones.Instruccion.agregarTexto(elemento.toString()+"\n");
         });
         Funciones.Instruccion.agregarTexto("\n");
+    }
+    
+    public static void reinicioDeDatosParaEstadisticas(){
+        listaFrecuencia.clear();
+        listaValor.clear();
+    }
+    
+    public static void calcularEstadisticas(LinkedList<String> valores, String Titulo) {
+        try{
+            reinicioDeDatosParaEstadisticas();
+            // Convertir la lista de Strings a una lista de Doubles
+            LinkedList<Double> valoresDoubles = new LinkedList<>();
+            for (String str : valores) {
+                try {
+                    double valor = Double.parseDouble(str);
+                    valoresDoubles.add(valor);
+                } catch (NumberFormatException e) {
+                    // Manejar el error si algún valor no es un número válido
+                    e.printStackTrace();
+                }
+            }
+
+            // Ordenar la lista de valores
+            Collections.sort(valoresDoubles);
+
+            // Calcular frecuencia de cada valor
+            LinkedHashMap<Double, Integer> frecuenciaValores = new LinkedHashMap<>();
+            for (Double valor : valoresDoubles) {
+                frecuenciaValores.put(valor, frecuenciaValores.getOrDefault(valor, 0) + 1);
+            }
+
+            // Calcular frecuencia acumulada y frecuencia relativa
+            int totalValores = valoresDoubles.size();
+            int frecuenciaAcumulada = 0;
+            StringBuilder resultado = new StringBuilder();
+            resultado.append(String.format("%-10s %-10s %-10s %-10s\n", "Valor", "Fb", "Fa", "Fr"));
+            resultado.append("---------------------------------------------\n");
+            for (Map.Entry<Double, Integer> entry : frecuenciaValores.entrySet()) {
+                double valor = entry.getKey();
+                int frecuencia = entry.getValue();
+                double frecuenciaRelativa = (double) frecuencia / totalValores * 100;
+                frecuenciaAcumulada += frecuencia;
+                resultado.append(String.format("%-10s %-10s %-10s %-10.2f%%\n", valor, frecuencia, frecuenciaAcumulada, frecuenciaRelativa));
+                listaFrecuencia.add((double)frecuencia);
+                listaValor.add(valor);
+            }
+            resultado.append("---------------------------------------------\n");
+            resultado.append(String.format("%-10s %-10s %-10s %-10s\n", "Totales:", totalValores, totalValores, "100%"));
+            resultado.append("---------------------------------------------\n");
+
+            // Agregar el título
+            resultado.insert(0,Titulo + "\n");
+            resultado.insert(Titulo.length() + 1, "-".repeat(45) + "\n");
+
+            Funciones.Instruccion.agregarTexto(resultado.toString());
+            InterfasGrafica.FrameInicio.barrasHistogram(Titulo, listaFrecuencia, listaValor);
+        } catch (Exception e) {
+            // Manejar cualquier excepción que ocurra 
+            e.printStackTrace();
+            Funciones.Instruccion.agregarError("Error: al calcular estadísticas: " + e.getMessage());
+        }        
     }
 }
