@@ -250,9 +250,28 @@ public class FrameInicio extends javax.swing.JFrame {
                 jMenu2MenuSelected(evt);
             }
         });
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Reportes");
+        jMenu3.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu3MenuSelected(evt);
+            }
+        });
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -331,9 +350,9 @@ public class FrameInicio extends javax.swing.JFrame {
             //Comente la llamada a la funcion ya que solo se debe de ejecutar una ves, para que genere los archivos .java en 
             //el paquete analizador
             
-            analizadores("src/Analizadores/", "Lexer.jflex", "Parser.cup");//------------------------------------------------------------- Aqui 1 
+            //analizadores("src/Analizadores/", "Lexer.jflex", "Parser.cup");//------------------------------------------------------------- Aqui 1 
             
-            //analizar(texto); //------------------------------------------------------------------------------- Aqui 2
+            analizar(texto); //------------------------------------------------------------------------------- Aqui 2
             //Se ingresa el texto a la consola sin comillas
             String consola2 = Funciones.Instruccion.consola.replace("\"", "");
             jTextArea1.setText(consola2);
@@ -481,6 +500,21 @@ public class FrameInicio extends javax.swing.JFrame {
             mostrarGrafica(indiceGraficaActual, jPanelGraficas);
         }        
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        // Accion de Reportes:
+        
+    }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenu3MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu3MenuSelected
+        // Reportes:
+        Funciones.Expresion.imprecionLexemas();
+        
+    }//GEN-LAST:event_jMenu3MenuSelected
 
     //Generador de Analizadores, la cual se encutra en el repo
     public static void analizadores(String ruta, String jflexFile, String cupFile){
