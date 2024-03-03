@@ -7,6 +7,7 @@ package Analizadores;
 
 import java_cup.runtime.*;
 import Funciones.Tokens;
+import Funciones.Errores;
 
 
 @SuppressWarnings("fallthrough")
@@ -451,7 +452,8 @@ public class Lexer implements java_cup.runtime.Scanner {
   private boolean zzEOFDone;
 
   /* user code: */
-Tokens token; 
+Tokens token;
+Errores error; 
 
 
   /**
@@ -880,7 +882,7 @@ Tokens token;
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { Funciones.Instruccion.agregarError("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn); 
+            { error = new Errores("Lexico","El caracter "+ yytext() + " no pertenece al lenguaje.", yyline, yycolumn); Funciones.Instruccion.agregarError(error); 
                     //System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn);
             }
           // fall through

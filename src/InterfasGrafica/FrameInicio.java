@@ -356,14 +356,6 @@ public class FrameInicio extends javax.swing.JFrame {
             //Se ingresa el texto a la consola sin comillas
             String consola2 = Funciones.Instruccion.consola.replace("\"", "");
             jTextArea1.setText(consola2);
-            
-            
-            //Se deve de generar un nuevo objeto en el cual se colocque la fila, columna lexema... 
-            //y eso se debe de guardar en la listaTokens
-            Funciones.Instruccion.listaTokens.forEach((elemento)-> {
-
-               // System.out.println(elemento.toString());
-            }); 
         }
         
     }//GEN-LAST:event_jMenu2MenuSelected
@@ -502,7 +494,7 @@ public class FrameInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
-        // Accion de Reportes:
+        // none:
         
     }//GEN-LAST:event_jMenu3ActionPerformed
 
@@ -513,7 +505,7 @@ public class FrameInicio extends javax.swing.JFrame {
     private void jMenu3MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu3MenuSelected
         // Reportes:
         Funciones.Expresion.imprecionLexemas();
-        
+        Funciones.Expresion.imprecionErrores();
     }//GEN-LAST:event_jMenu3MenuSelected
 
     //Generador de Analizadores, la cual se encutra en el repo
@@ -528,8 +520,8 @@ public class FrameInicio extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("No se ha podido generar los analizadores");
             System.out.println(e);
-            Funciones.Instruccion.agregarError("No se ha podido generar los analizadores");
-            Funciones.Instruccion.agregarError(e);
+            //Funciones.Instruccion.agregarError("No se ha podido generar los analizadores");
+            //Funciones.Instruccion.agregarError(e);
         }
     }
     
@@ -544,8 +536,8 @@ public class FrameInicio extends javax.swing.JFrame {
         } catch (Exception e) {//esta son esepciones por si hay errores
             System.out.println("Error fatal en compilación de entrada.");
             System.out.println(e);
-            Funciones.Instruccion.agregarError("Error fatal en compilación de entrada.");
-            Funciones.Instruccion.agregarError(e);
+            //Funciones.Instruccion.agregarError("Error fatal en compilación de entrada.");
+            //Funciones.Instruccion.agregarError(e);
         } 
     } 
     
@@ -645,8 +637,8 @@ public class FrameInicio extends javax.swing.JFrame {
         if (clave != null && valor != null) {
             graficasBarras.put(clave, valor);
         } else {
-            //System.err.println("Error: No se puede agregar un valor nulo a la graficasBarras.");
-            Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasBarras.");
+            System.err.println("Error: No se puede agregar un valor nulo a la graficasBarras.");
+            //Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasBarras.");
         }
     }
     
@@ -695,7 +687,8 @@ public class FrameInicio extends javax.swing.JFrame {
                         Double valor = Double.parseDouble(str);
                         valoresDoubles.add(valor);
                     } catch (NumberFormatException e) {
-                        Funciones.Instruccion.agregarError("Error al convertir string a double en el metodo Barras con el valor: " + str);
+                        //Funciones.Instruccion.agregarError("Error al convertir string a double en el metodo Barras con el valor: " + str);
+                        System.out.println("Error al convertir string a double en el metodo Barras con el valor: " + str);
                     }
                 }
             
@@ -722,8 +715,8 @@ public class FrameInicio extends javax.swing.JFrame {
                 // Mostrar
                 mostrarGrafica(indiceGraficaActual, jPanelGraficas);
             }else{
-                Funciones.Instruccion.agregarError("Error: grafica Barras con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
-                //System.out.println("Error: grafica Barras con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+                //Funciones.Instruccion.agregarError("Error: grafica Barras con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+                System.out.println("Error: grafica Barras con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
                 reiniciarGraficaBarras();
             }
 
@@ -737,8 +730,8 @@ public class FrameInicio extends javax.swing.JFrame {
         if (clave != null && valor != null) {
             graficasPie.put(clave, valor);
         } else {
-            //System.err.println("Error: No se puede agregar un valor nulo a la graficasBarras.");
-            Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasValorPie.");
+            System.err.println("Error: No se puede agregar un valor nulo a la graficasBarras.");
+            //Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasValorPie.");
         }
     }
     
@@ -779,7 +772,8 @@ public class FrameInicio extends javax.swing.JFrame {
                         Double valor = Double.parseDouble(str);
                         valoresDoubles.add(valor);
                     } catch (NumberFormatException e) {
-                        Funciones.Instruccion.agregarError("Error al convertir string a double en el metodo Pie con el valor: " + str);
+                        //Funciones.Instruccion.agregarError("Error al convertir string a double en el metodo Pie con el valor: " + str);
+                        System.out.println("Error al convertir string a double en el metodo Pie con el valor: " + str);
                     }
                 }
 
@@ -800,8 +794,8 @@ public class FrameInicio extends javax.swing.JFrame {
                 // Mostrar
                 mostrarGrafica(indiceGraficaActual, jPanelGraficas);
             }else{
-               Funciones.Instruccion.agregarError("Error: grafica Pie con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
-               //System.out.println("Error: grafica Pie con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+               //Funciones.Instruccion.agregarError("Error: grafica Pie con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+               System.out.println("Error: grafica Pie con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
                reiniciarGraficaPie();
             }
         
@@ -815,8 +809,8 @@ public class FrameInicio extends javax.swing.JFrame {
         if (clave != null && valor != null) {
             graficasLine.put(clave, valor);
         } else {
-            //System.err.println("Error: No se puede agregar un valor nulo a la graficasValorLine.");
-            Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasValorLine.");
+            System.err.println("Error: No se puede agregar un valor nulo a la graficasValorLine.");
+            //Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasValorLine.");
         }
     }
     
@@ -865,7 +859,8 @@ public class FrameInicio extends javax.swing.JFrame {
                         Double valor = Double.parseDouble(str);
                         valoresDoubles.add(valor);
                     } catch (NumberFormatException e) {
-                        Funciones.Instruccion.agregarError("Error al convertir string a double en el metodo Pie con el valor: " + str);
+                        //Funciones.Instruccion.agregarError("Error al convertir string a double en el metodo Pie con el valor: " + str);
+                        System.out.println("Error al convertir string a double en el metodo Pie con el valor: " + str);
                     }
                 }
                 
@@ -892,8 +887,8 @@ public class FrameInicio extends javax.swing.JFrame {
                 // Mostrar
                 mostrarGrafica(indiceGraficaActual, jPanelGraficas);
             }else{
-                Funciones.Instruccion.agregarError("Error: grafica Linea con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
-                //System.out.println("Error: grafica Linea con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+                //Funciones.Instruccion.agregarError("Error: grafica Linea con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+                System.out.println("Error: grafica Linea con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
                 reiniciarGraficaLinea();
             }       
         } catch (Exception e) {
@@ -907,8 +902,8 @@ public class FrameInicio extends javax.swing.JFrame {
         if (clave != null && valor != null) {
             graficasHistogram.put(clave, valor);
         } else {
-            //System.err.println("Error: No se puede agregar un valor nulo a la graficasValorHistogram.");
-            Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasValorHistogram.");
+            System.err.println("Error: No se puede agregar un valor nulo a la graficasValorHistogram.");
+            //Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasValorHistogram.");
         }
     }
     
@@ -949,7 +944,8 @@ public class FrameInicio extends javax.swing.JFrame {
                         String str = String.valueOf(valor);
                         datosEjeX.add(str);
                     } catch (NumberFormatException e) {
-                        Funciones.Instruccion.agregarError("Error al convertir double a string en el metodo barrasHistogram con el valor: " + valor);
+                        //Funciones.Instruccion.agregarError("Error al convertir double a string en el metodo barrasHistogram con el valor: " + valor);
+                        System.out.println("Error al convertir double a string en el metodo barrasHistogram con el valor: " + valor);
                     }
                 }
             
@@ -976,8 +972,8 @@ public class FrameInicio extends javax.swing.JFrame {
                 // Mostrar
                 mostrarGrafica(indiceGraficaActual, jPanelGraficas);
             }else{
-                Funciones.Instruccion.agregarError("Error: barrasHistogram con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
-                //System.out.println("Error: grafica Barras con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+                //Funciones.Instruccion.agregarError("Error: barrasHistogram con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+                System.out.println("Error: grafica Barras con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
                 //reiniciarGraficaBarras();
             }
 

@@ -1,7 +1,6 @@
 
 package Funciones;
 
-import java.awt.Desktop;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -10,8 +9,6 @@ import java.util.Map;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 
 public class Expresion {
@@ -228,7 +225,7 @@ public class Expresion {
                     double valor = Double.parseDouble(str);
                     valoresDoubles.add(valor);
                 } catch (NumberFormatException e) {
-                    // Manejar el error si algún valor no es un número válido
+                    // Manejar el error 
                     e.printStackTrace();
                 }
             }
@@ -270,7 +267,7 @@ public class Expresion {
         } catch (Exception e) {
             // Manejar cualquier excepción que ocurra 
             e.printStackTrace();
-            Funciones.Instruccion.agregarError("Error: al calcular estadísticas: " + e.getMessage());
+            //Funciones.Instruccion.agregarError("Error: al calcular estadísticas: " + e.getMessage());
         }        
     }
     
@@ -332,6 +329,68 @@ public class Expresion {
             System.out.println("Tabla de Tokens generada y guardada en: " + rutaArchivo);
         } catch (IOException e) {
             System.out.println("Error al guardar la tabla de Tokens en el archivo: " + e.getMessage());
+        }
+    }
+    
+    
+    //Generacion de la tabla de Errores
+    public static void imprecionErrores() {
+        Funciones.Errores.contador1 = 0;
+        // Construir la tabla en formato HTML
+        StringBuilder htmlTable = new StringBuilder();
+        htmlTable.append("<html>");
+        htmlTable.append("<head>");
+        htmlTable.append("<title>Tabla de Errores</title>");
+        htmlTable.append("</head>");
+        htmlTable.append("<body>");
+        htmlTable.append("<h1>Tabla de Errores</h1>");
+        htmlTable.append("<table border=\"1\">");
+        htmlTable.append("<tr>");
+        htmlTable.append("<th>Número</th>");
+        htmlTable.append("<th>Tipo</th>");
+        htmlTable.append("<th>Descripcion</th>");
+        htmlTable.append("<th>Línea</th>");
+        htmlTable.append("<th>Columna</th>");
+        htmlTable.append("</tr>");
+
+        // Iterar sobre la lista de tokens
+        for (Object obj : Instruccion.listaErrores) {
+            // Verificar si el objeto es una instancia de Token
+            if (obj instanceof Errores) {
+                // Convertir el objeto a Token
+                Errores error = (Errores) obj;
+
+                // Acceder a los valores del token
+                int numero = error.getNumero();
+                String tipo = error.getTipo();
+                String descripcion = error.getDescripcion();
+                int linea = error.getLinea();
+                int columna = error.getColumna();
+
+                // Agregar una fila a la tabla con los valores del token
+                htmlTable.append("<tr>");
+                htmlTable.append("<td>").append(numero).append("</td>");
+                htmlTable.append("<td>").append(tipo).append("</td>");
+                htmlTable.append("<td>").append(descripcion).append("</td>");
+                htmlTable.append("<td>").append(linea).append("</td>");
+                htmlTable.append("<td>").append(columna).append("</td>");
+                htmlTable.append("</tr>");
+            }
+        }
+
+        // Cerrar la tabla y el documento HTML
+        htmlTable.append("</table>");
+        htmlTable.append("</body>");
+        htmlTable.append("</html>");
+
+        // Guardar la tabla en un archivo HTML
+        String rutaArchivo = "src/Tablas(Reportes)/TablaErrores.html";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo))) {
+            writer.write(htmlTable.toString());
+            
+            System.out.println("Tabla de Errores generada y guardada en: " + rutaArchivo);
+        } catch (IOException e) {
+            System.out.println("Error al guardar la tabla de Errores en el archivo: " + e.getMessage());
         }
     }
 

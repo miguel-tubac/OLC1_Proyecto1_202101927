@@ -3,6 +3,7 @@ package Analizadores;
 
 import java_cup.runtime.*;
 import Funciones.Tokens;
+import Funciones.Errores;
 
 %%	
 //-------> Directivas (No tocar)
@@ -17,7 +18,8 @@ import Funciones.Tokens;
 %ignorecase
 
 %{
-Tokens token; 
+Tokens token;
+Errores error; 
 %} 
 
 // ------> Expresiones Regulares, aqui debo de definir todas las expreciones 
@@ -103,6 +105,6 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 [ \t\r\n\f]     {/* Espacios en blanco se ignoran */}
 
 //------> Errores Léxicos 
-.           	{   Funciones.Instruccion.agregarError("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn); 
+.           	{ error = new Errores("Lexico","El caracter "+ yytext() + " no pertenece al lenguaje.", yyline, yycolumn); Funciones.Instruccion.agregarError(error); 
                     //System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn); 
                 }

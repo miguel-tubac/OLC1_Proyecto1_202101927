@@ -1,19 +1,20 @@
 
 package Funciones;
 
-public class Tokens {
-    public static int contador = 0; // Variable estática para contar las instancias
+
+public class Errores {
+    public static int contador1 = 0; // Variable estática para contar las instancias
     private int numero;
-    private String lexema;
     private String tipo;
+    private String descripcion;
     private int linea;
     private int columna;
 
     // Constructor
-    public Tokens(String lexema, String tipo, int linea, int columna) {
-        this.numero = ++contador; // Incrementar el contador y asignarlo a numero
-        this.lexema = lexema;
+    public Errores (String tipo, String descripcion, int linea, int columna) {
+        this.numero = ++contador1; // Incrementar el contador y asignarlo a numero
         this.tipo = tipo;
+        this.descripcion = descripcion;
         this.linea = linea;
         this.columna = columna;
     }
@@ -23,12 +24,12 @@ public class Tokens {
         return numero;
     }
 
-    public String getLexema() {
-        return lexema;
-    }
-
     public String getTipo() {
         return tipo;
+    }
+    
+    public String getDescripcion() {
+        return descripcion;
     }
 
     public int getLinea() {
