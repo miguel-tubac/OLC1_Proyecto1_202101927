@@ -23,7 +23,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -49,6 +48,8 @@ public class FrameInicio extends javax.swing.JFrame {
     public static HashMap<String, Object> graficasBarras = new HashMap<>();
     //Esta es donde se alamcenan los valores de la grafica de Pie
     public static HashMap<String, Object> graficasPie = new HashMap<>();
+    //Esta es donde se alamcenan los valores de la grafica de Line
+    public static HashMap<String, Object> graficasLine = new HashMap<>();
     
     public FrameInicio() {
         initComponents();
@@ -318,6 +319,7 @@ public class FrameInicio extends javax.swing.JFrame {
             
             reiniciarGraficaBarras();//Reinicia los valores para la grafica de barras
             reiniciarGraficaPie();//Reinicia los valores de las graficas de Pie
+            reiniciarGraficaLinea();//Reinicio de los valores de la grafica de Linea
             
             //ejemplo de utilizacion de la funcion analizadores
             // primer atributo: ruta donde se encuentran los archivos flex y cup
@@ -605,7 +607,7 @@ public class FrameInicio extends javax.swing.JFrame {
         if (clave != null && valor != null) {
             graficasBarras.put(clave, valor);
         } else {
-            System.err.println("Error: No se puede agregar un valor nulo a la graficasBarras.");
+            //System.err.println("Error: No se puede agregar un valor nulo a la graficasBarras.");
             Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasBarras.");
         }
     }
@@ -617,9 +619,9 @@ public class FrameInicio extends javax.swing.JFrame {
     
     // Generacion de las variables para la grafica de barras
     public static void recorrerParametrosGrafica(){
-        String Titulo = String.valueOf(graficasBarras.get("titulo")); 
-        String TituloX = String.valueOf(graficasBarras.get("tituloX")); 
-        String TituloY = String.valueOf(graficasBarras.get("tituloY")); 
+        String Titulo = String.valueOf(graficasBarras.get("titulo")).replace("\"", ""); 
+        String TituloX = String.valueOf(graficasBarras.get("tituloX")).replace("\"", ""); 
+        String TituloY = String.valueOf(graficasBarras.get("tituloY")).replace("\"", ""); 
         LinkedList<String> valores = (LinkedList<String>) graficasBarras.get("ejeY"); 
         LinkedList<String> ejex = (LinkedList<String>) graficasBarras.get("ejeX"); 
         
@@ -647,49 +649,69 @@ public class FrameInicio extends javax.swing.JFrame {
     //metodo para "Generar las graficas de barras": 
     public static void barras(String Titulo, String TituloX, String TituloY, LinkedList<String> valores, LinkedList<String> ejex) {
         try {
-            // Convertir valores de String a Double
-            LinkedList<Double> valoresDoubles = new LinkedList<>();
-            for (String str : valores) {
-                try {
-                    Double valor = Double.parseDouble(str);
-                    valoresDoubles.add(valor);
-                } catch (NumberFormatException e) {
-                    Funciones.Instruccion.agregarError("Error al convertir string a double en el metodo Barras con el valor: " + str);
-                    // Puedes manejar el error aquí, si un elemento no es un número válido
+            if (valores.size() == ejex.size()){
+                // Convertir valores de String a Double
+                LinkedList<Double> valoresDoubles = new LinkedList<>();
+                for (String str : valores) {
+                    try {
+                        Double valor = Double.parseDouble(str);
+                        valoresDoubles.add(valor);
+                    } catch (NumberFormatException e) {
+                        Funciones.Instruccion.agregarError("Error al convertir string a double en el metodo Barras con el valor: " + str);
+                    }
                 }
+            
+            
+                //Ingreso de datos
+                DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+                for (int i = 0; i < valoresDoubles.size(); i++) {
+                    dataset.addValue(valoresDoubles.get(i),"Valor", ejex.get(i).replace("\"", ""));
+                }
+
+                // Creación de gráfica
+                JFreeChart grafica
+                        = ChartFactory.createBarChart(
+                                Titulo, //TITULO
+                                TituloX, TituloY,
+                                dataset,
+                                PlotOrientation.VERTICAL,
+                                true, true, true);
+
+                graficas.add(grafica);
+                titulos.add(Titulo);
+
+                // Mostrar
+                mostrarGrafica(indiceGraficaActual, jPanelGraficas);
+            }else{
+                Funciones.Instruccion.agregarError("Error: grafica Barras con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+                //System.out.println("Error: grafica Barras con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+                reiniciarGraficaBarras();
             }
-
-            //Ingreso de datos
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-            for (int i = 0; i < valoresDoubles.size(); i++) {
-                dataset.addValue(valoresDoubles.get(i), "Valor", ejex.get(i));
-            }
-
-            // Creación de gráfica
-            JFreeChart grafica
-                    = ChartFactory.createBarChart(
-                            Titulo, //TITULO
-                            TituloX, TituloY,
-                            dataset,
-                            PlotOrientation.VERTICAL,
-                            true, true, true);
-
-            graficas.add(grafica);
-            titulos.add(Titulo);
-
-            // Mostrar
-            mostrarGrafica(indiceGraficaActual, jPanelGraficas);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
+    //Metodo que agrega valores al areglo de barras
+    public static void agregarValorPie(String clave, Object valor) {
+        if (clave != null && valor != null) {
+            graficasPie.put(clave, valor);
+        } else {
+            //System.err.println("Error: No se puede agregar un valor nulo a la graficasBarras.");
+            Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasValorPie.");
+        }
+    }
+    
+    // Método para reiniciar las graficas de Pie
+    public static void reiniciarGraficaPie() {
+        graficasPie.clear();
+    }
     
     // Generacion de las variables para la grafica de barras
     public static void recorrerParametrosGraficaPie(){
-        String Titulo = String.valueOf(graficasPie.get("titulo")); 
+        String Titulo = String.valueOf(graficasPie.get("titulo")).replace("\"", ""); 
         LinkedList<String> valores = (LinkedList<String>) graficasPie.get("values"); 
         LinkedList<String> ejex = (LinkedList<String>) graficasPie.get("label"); 
         
@@ -708,58 +730,137 @@ public class FrameInicio extends javax.swing.JFrame {
     }
     
     
-    //Metodo que agrega valores al areglo de barras
-    public static void agregarValorPie(String clave, Object valor) {
-        if (clave != null && valor != null) {
-            graficasPie.put(clave, valor);
-        } else {
-            System.err.println("Error: No se puede agregar un valor nulo a la graficasBarras.");
-            Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasValorPie.");
-        }
-    }
-    
-    // Método para reiniciar las graficas de Pie
-    public static void reiniciarGraficaPie() {
-        graficasPie.clear();
-    }
-    
     //Metdo para la creacion de la grafica de Pie
     public static void Pie(String Titulo, LinkedList<String> valores, LinkedList<String> ejex ){
         try {
-            // Convertir valores de String a Double
-            LinkedList<Double> valoresDoubles = new LinkedList<>();
-            for (String str : valores) {
-                try {
-                    Double valor = Double.parseDouble(str);
-                    valoresDoubles.add(valor);
-                } catch (NumberFormatException e) {
-                    Funciones.Instruccion.agregarError("Error al convertir string a double en el metodo Pie con el valor: " + str);
-                    System.out.println("Error al convertir string a double en el metodo Pie con el valor: " + str);
-                    // Puedes manejar el error aquí, si un elemento no es un número válido
+            if (valores.size() == ejex.size()){
+                // Convertir valores de String a Double
+                LinkedList<Double> valoresDoubles = new LinkedList<>();
+                for (String str : valores) {
+                    try {
+                        Double valor = Double.parseDouble(str);
+                        valoresDoubles.add(valor);
+                    } catch (NumberFormatException e) {
+                        Funciones.Instruccion.agregarError("Error al convertir string a double en el metodo Pie con el valor: " + str);
+                    }
                 }
-            }
-        
-            //Ingreso de datos
-            DefaultPieDataset dataset = new DefaultPieDataset( );
 
-            for (int i = 0; i < Math.min(5, Math.min(ejex.size(), valoresDoubles.size())); i++) {
-                dataset.setValue(ejex.get(i), valoresDoubles.get(i));
-            }
-            // Creación de gráfica
-            JFreeChart grafica = 
-                ChartFactory.createPieChart(Titulo, dataset);
-            
-            //Adicion de la grafica a la lista:
-            graficas.add(grafica);
-            titulos.add(Titulo);
+                //Ingreso de datos
+                DefaultPieDataset dataset = new DefaultPieDataset( );
 
-            // Mostrar
-            mostrarGrafica(indiceGraficaActual, jPanelGraficas);
+                for (int i = 0; i < valoresDoubles.size(); i++) {
+                    dataset.setValue(ejex.get(i).replace("\"", ""), valoresDoubles.get(i));
+                }
+                // Creación de gráfica
+                JFreeChart grafica = 
+                    ChartFactory.createPieChart(Titulo, dataset);
+
+                //Adicion de la grafica a la lista:
+                graficas.add(grafica);
+                titulos.add(Titulo);
+
+                // Mostrar
+                mostrarGrafica(indiceGraficaActual, jPanelGraficas);
+            }else{
+               Funciones.Instruccion.agregarError("Error: grafica Pie con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+               //System.out.println("Error: grafica Pie con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+               reiniciarGraficaPie();
+            }
         
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error en el cath");
         }          
+    }
+    
+    //Metodo que agrega valores al areglo de barras
+    public static void agregarValorLine(String clave, Object valor) {
+        if (clave != null && valor != null) {
+            graficasLine.put(clave, valor);
+        } else {
+            //System.err.println("Error: No se puede agregar un valor nulo a la graficasValorLine.");
+            Funciones.Instruccion.agregarError("Error: No se puede agregar un valor nulo a la graficasValorLine.");
+        }
+    }
+    
+    // Método para reiniciar las graficas de Barras
+    public static void reiniciarGraficaLinea() {
+        graficasLine.clear();
+    }
+    
+    // Generacion de las variables para la grafica de barras
+    public static void recorrerParametrosGraficaLinea(){
+        String Titulo = String.valueOf(graficasLine.get("titulo")).replace("\"", ""); 
+        String TituloX = String.valueOf(graficasLine.get("tituloX")).replace("\"", ""); 
+        String TituloY = String.valueOf(graficasLine.get("tituloY")).replace("\"", ""); 
+        LinkedList<String> valores = (LinkedList<String>) graficasLine.get("ejeY"); 
+        LinkedList<String> ejex = (LinkedList<String>) graficasLine.get("ejeX"); 
+        
+        if (Titulo == null){
+            Titulo = "Vacillo";
+        }
+        if (TituloX == null){
+            TituloX = "Vacillo";
+        }
+        if (TituloY == null){
+            TituloX = "Vacillo";
+        }
+        if (valores == null){
+            valores = new LinkedList<>();
+        }
+        if (ejex == null){
+            ejex = new LinkedList<>();
+        }
+        
+        //llamo al metodo de creacion de la grafica de Linea
+        linea(Titulo, TituloX, TituloY, valores, ejex);
+    }
+    
+    
+    //Grafica de Linea
+    public static void linea(String Titulo, String TituloX, String TituloY, LinkedList<String> valores, LinkedList<String> ejex){
+        try{
+            if (valores.size() == ejex.size()){
+                // Convertir valores de String a Double
+                LinkedList<Double> valoresDoubles = new LinkedList<>();
+                for (String str : valores) {
+                    try {
+                        Double valor = Double.parseDouble(str);
+                        valoresDoubles.add(valor);
+                    } catch (NumberFormatException e) {
+                        Funciones.Instruccion.agregarError("Error al convertir string a double en el metodo Pie con el valor: " + str);
+                    }
+                }
+                
+                //Ingreso de datos
+                DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+
+                for(int i = 0; i < valoresDoubles.size(); i++){
+                    dataset.addValue(valoresDoubles.get(i), "Valor", ejex.get(i).replace("\"", ""));
+                }
+
+                // Creación de gráfica
+                JFreeChart grafica = 
+                    ChartFactory.createLineChart(
+                            Titulo, 
+                            TituloX,
+                            TituloY, 
+                            dataset);
+                
+                //Adicion de la grafica a la lista:
+                graficas.add(grafica);
+                titulos.add(Titulo);
+
+                // Mostrar
+                mostrarGrafica(indiceGraficaActual, jPanelGraficas);
+            }else{
+                Funciones.Instruccion.agregarError("Error: grafica Linea con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+                //System.out.println("Error: grafica Linea con el tiltulo: "+Titulo+" no cuenta con el mismo numero de valores y ejes");
+                reiniciarGraficaLinea();
+            }       
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
     }
     
     // Metodo para mostrar las graficas:

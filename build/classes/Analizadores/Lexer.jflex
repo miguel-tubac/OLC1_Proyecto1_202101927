@@ -78,6 +78,8 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 "graphPie"       { return new Symbol(sym.GRAPHPIE, yycolumn, yyline, yytext());}
 "label"       { return new Symbol(sym.LABEL, yycolumn, yyline, yytext());}
 "values"       { return new Symbol(sym.VALUES, yycolumn, yyline, yytext());}
+//Grafica de Linea
+"graphLine"       { return new Symbol(sym.GRAPHLINE, yycolumn, yyline, yytext());}
 
 
 //------> Operadores

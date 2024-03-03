@@ -53,6 +53,7 @@ public class sym {
   public static final int EXEC = 44;
   public static final int LABEL = 46;
   public static final int MAX = 35;
+  public static final int GRAPHLINE = 48;
   public static final int VAR = 24;
   public static final int PRINT = 7;
   public static final int CONSOLE = 6;
@@ -104,7 +105,8 @@ public class sym {
   "EXEC",
   "GRAPHPIE",
   "LABEL",
-  "VALUES"
+  "VALUES",
+  "GRAPHLINE"
   };
 }
 
