@@ -393,5 +393,70 @@ public class Expresion {
             System.out.println("Error al guardar la tabla de Errores en el archivo: " + e.getMessage());
         }
     }
+    
+    
+    //Generacion de la tabla de Simbolos
+    public static void imprecionSimbolos() {
+        Funciones.Simbolos.contador2 = 0;
+        // Construir la tabla en formato HTML
+        StringBuilder htmlTable = new StringBuilder();
+        htmlTable.append("<html>");
+        htmlTable.append("<head>");
+        htmlTable.append("<title>Tabla de Simbolos</title>");
+        htmlTable.append("</head>");
+        htmlTable.append("<body>");
+        htmlTable.append("<h1>Tabla de Simbolos</h1>");
+        htmlTable.append("<table border=\"1\">");
+        htmlTable.append("<tr>");
+        htmlTable.append("<th>número</th>");
+        htmlTable.append("<th>Nombre</th>");
+        htmlTable.append("<th>Tipo</th>");
+        htmlTable.append("<th>Valor</th>");
+        htmlTable.append("<th>Línea</th>");
+        htmlTable.append("<th>Columna</th>");
+        htmlTable.append("</tr>");
+
+        // Iterar sobre la lista de tokens
+        for (Object obj : Instruccion.simbolos) {
+            // Verificar si el objeto es una instancia de Token
+            if (obj instanceof Simbolos) {
+                // Convertir el objeto a Token
+                Simbolos sim = (Simbolos) obj;
+
+                // Acceder a los valores del token
+                int numero = sim.getNumero();
+                String nombre = sim.getNombre();
+                String tipo = sim.getTipo();
+                String valor = sim.getValor();
+                int linea = sim.getLinea();
+                int columna = sim.getColumna();
+
+                // Agregar una fila a la tabla con los valores del token
+                htmlTable.append("<tr>");
+                htmlTable.append("<td>").append(numero).append("</td>");
+                htmlTable.append("<td>").append(nombre).append("</td>");
+                htmlTable.append("<td>").append(tipo).append("</td>");
+                htmlTable.append("<td>").append(valor).append("</td>");
+                htmlTable.append("<td>").append(linea).append("</td>");
+                htmlTable.append("<td>").append(columna).append("</td>");
+                htmlTable.append("</tr>");
+            }
+        }
+
+        // Cerrar la tabla y el documento HTML
+        htmlTable.append("</table>");
+        htmlTable.append("</body>");
+        htmlTable.append("</html>");
+
+        // Guardar la tabla en un archivo HTML
+        String rutaArchivo = "src/Tablas(Reportes)/TablaSimbolos.html";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo))) {
+            writer.write(htmlTable.toString());
+            
+            System.out.println("Tabla de Simbolos generada y guardada en: " + rutaArchivo);
+        } catch (IOException e) {
+            System.out.println("Error al guardar la tabla de Simbolos en el archivo: " + e.getMessage());
+        }
+    }
 
 }

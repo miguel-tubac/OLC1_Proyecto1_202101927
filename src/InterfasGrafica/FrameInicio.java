@@ -334,10 +334,14 @@ public class FrameInicio extends javax.swing.JFrame {
             Funciones.Instruccion.reiniciarTablaDeSimbolos();//Reinicia la tabla de simbolos
             Funciones.Instruccion.reiniciarErrores();//Reinicia la tabla de Errores
             Funciones.Expresion.reinicioDeDatosParaEstadisticas();//Se reinicia los valores para la grafica del Histograma
+            Funciones.Instruccion.reiniciarSimbolos();//Reinica los objetos de la tabla final de Simbolos
             jPanelGraficas.removeAll();//Reinica la vista de graficas
             titulos.clear();
             graficas.clear();
             indiceGraficaActual = 0;
+            Funciones.Tokens.contador = 0;
+            Funciones.Errores.contador1 = 0;
+            Funciones.Simbolos.contador2 = 0;
             
             reiniciarGraficaBarras();//Reinicia los valores para la grafica de barras
             reiniciarGraficaPie();//Reinicia los valores de las graficas de Pie
@@ -506,6 +510,8 @@ public class FrameInicio extends javax.swing.JFrame {
         // Reportes:
         Funciones.Expresion.imprecionLexemas();
         Funciones.Expresion.imprecionErrores();
+        Funciones.Expresion.imprecionSimbolos();
+        JOptionPane.showMessageDialog(null, "Tablas generadas y guardadas en: src/Tablas(Reportes)/.... " );
     }//GEN-LAST:event_jMenu3MenuSelected
 
     //Generador de Analizadores, la cual se encutra en el repo

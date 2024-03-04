@@ -5,6 +5,7 @@ import java_cup.runtime.*;
 import java.util.LinkedList;
 import InterfasGrafica.FrameInicio;
 import Funciones.Errores;
+import Funciones.Simbolos;
 
 
 //------> Codigo para el parser
@@ -13,7 +14,8 @@ import Funciones.Errores;
 parser code 
 {:
     public static String resultado = "";
-    Errores error; 
+    Errores error;
+    Simbolos sim;
 
     public void syntax_error(Symbol s)
     {
@@ -34,7 +36,7 @@ parser code
 
 //------> Codigo para las acciones gramaticales (no tocar)
 action code
-{:  :}
+{: :}
 
 
 //------> Declaración de terminales
@@ -124,33 +126,85 @@ siguiente ::= siguiente COMA expresion:val
 ;
 
 variables ::= VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION expresion:val END PUNTOYCOMA 
-                            {: Funciones.Instruccion.agregarValor(var.toString(), val.toString()); :}
+                            {: 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            :}
     | VAR DOSPUNTOS CHAR CORCHETE_A CORCHETE_C DOBLEDOSPUNTOS ID:var MENOR GUION ID:val END PUNTOYCOMA
-                            {: Funciones.Instruccion.agregarValor(var.toString(), val.toString()); :}
+                            {: 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable string", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            :}
     //Calculos aritmeticos
     | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION SUM PARENTESIS_A operacionsum:val PARENTESIS_C END PUNTOYCOMA
-                            {: Funciones.Instruccion.agregarValor(var.toString(), val.toString()); :}
+                            {: 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            :}
     | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION RES PARENTESIS_A operacionres:val PARENTESIS_C END PUNTOYCOMA
-                            {: Funciones.Instruccion.agregarValor(var.toString(), val.toString()); :}
+                            {: 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            :}
     | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION MUL PARENTESIS_A operacionmul:val PARENTESIS_C END PUNTOYCOMA
-                            {: Funciones.Instruccion.agregarValor(var.toString(), val.toString()); :}
+                            {: 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            :}
     | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION DIV PARENTESIS_A operaciondiv:val PARENTESIS_C END PUNTOYCOMA
-                            {: Funciones.Instruccion.agregarValor(var.toString(), val.toString()); :}
+                            {: 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            :}
     | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION MOD PARENTESIS_A operacionmod:val PARENTESIS_C END PUNTOYCOMA
-                            {: Funciones.Instruccion.agregarValor(var.toString(), val.toString()); :}
+                            {: 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            :}
     //Calculos estadisticos
     | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION MEDIA PARENTESIS_A CORCHETE_A operacionmedia:val CORCHETE_C PARENTESIS_C END PUNTOYCOMA
-                            {: Funciones.Instruccion.agregarValor(var.toString(), val.toString()); :}
+                            {: 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            :}
     | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION MEDIANA PARENTESIS_A CORCHETE_A operacionmediana:val CORCHETE_C PARENTESIS_C END PUNTOYCOMA
-                            {: Funciones.Instruccion.agregarValor(var.toString(), val.toString()); :}
+                            {: 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            :}
     | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION MODA PARENTESIS_A CORCHETE_A operacionmoda:val CORCHETE_C PARENTESIS_C END PUNTOYCOMA
-                            {: Funciones.Instruccion.agregarValor(var.toString(), val.toString()); :}  
+                            {: 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            :}  
     | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION VARIANZA PARENTESIS_A CORCHETE_A operacionvarianza:val CORCHETE_C PARENTESIS_C END PUNTOYCOMA
-                            {: Funciones.Instruccion.agregarValor(var.toString(), val.toString()); :}    
+                            {: 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            :}    
     | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION MAX PARENTESIS_A CORCHETE_A operacionmax:val CORCHETE_C PARENTESIS_C END PUNTOYCOMA
-                            {: Funciones.Instruccion.agregarValor(var.toString(), val.toString()); :}  
+                            {: 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            :}  
     | VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION MIN PARENTESIS_A CORCHETE_A operacionmin:val CORCHETE_C PARENTESIS_C END PUNTOYCOMA
-                            {: Funciones.Instruccion.agregarValor(var.toString(), val.toString()); :}       
+                            {: 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            :}       
 ;
 
 operacionsum ::= expresion:val1 COMA expresion:val2    {: RESULT = Funciones.Expresion.suma(val1.toString(), val2.toString()); :}
@@ -220,11 +274,15 @@ operacionmin ::= listaelemen:lista    {: RESULT = Funciones.Expresion.calcularMi
 arreglos ::= ARR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID:var MENOR GUION CORCHETE_A listaelemen:lista CORCHETE_C END PUNTOYCOMA
     {:
         Funciones.Instruccion.agregarValor(var.toString(), (LinkedList<String>) lista);
+        sim = new Simbolos(var.toString(),"Arreglo double", lista.toString(), listaright, listaleft);
+        Funciones.Instruccion.agregarSimbolo(sim);
     :}
 
     | ARR DOSPUNTOS CHAR CORCHETE_A CORCHETE_C DOBLEDOSPUNTOS ID:var MENOR GUION CORCHETE_A listaelemen:lista CORCHETE_C END PUNTOYCOMA
     {: 
         Funciones.Instruccion.agregarValor(var.toString(), (LinkedList<String>) lista);
+        sim = new Simbolos(var.toString(),"Arreglo string", lista.toString(), listaright, listaleft);
+        Funciones.Instruccion.agregarSimbolo(sim);
     :}
 ;
 

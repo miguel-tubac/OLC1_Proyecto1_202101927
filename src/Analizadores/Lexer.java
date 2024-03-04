@@ -948,7 +948,7 @@ Errores error;
           // fall through
           case 64: break;
           case 14:
-            { token = new Tokens(yytext(), "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.ID, yycolumn, yyline, yytext());
+            { token = new Tokens(yytext(), "String", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.ID, yycolumn, yyline, yytext());
             }
           // fall through
           case 65: break;
@@ -973,167 +973,167 @@ Errores error;
           // fall through
           case 69: break;
           case 19:
-            { token = new Tokens("arr", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.ARR, yycolumn, yyline, yytext());
+            { token = new Tokens("arr", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.ARR, yycolumn, yyline, yytext());
             }
           // fall through
           case 70: break;
           case 20:
-            { token = new Tokens("DIV", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.DIV, yycolumn, yyline, yytext());
+            { token = new Tokens("DIV", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.DIV, yycolumn, yyline, yytext());
             }
           // fall through
           case 71: break;
           case 21:
-            { token = new Tokens("end", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.END, yycolumn, yyline, yytext());
+            { token = new Tokens("end", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.END, yycolumn, yyline, yytext());
             }
           // fall through
           case 72: break;
           case 22:
-            { token = new Tokens("Max", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MAX, yycolumn, yyline, yytext());
+            { token = new Tokens("Max", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MAX, yycolumn, yyline, yytext());
             }
           // fall through
           case 73: break;
           case 23:
-            { token = new Tokens("Min", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MIN, yycolumn, yyline, yytext());
+            { token = new Tokens("Min", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MIN, yycolumn, yyline, yytext());
             }
           // fall through
           case 74: break;
           case 24:
-            { token = new Tokens("MOD", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MOD, yycolumn, yyline, yytext());
+            { token = new Tokens("MOD", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MOD, yycolumn, yyline, yytext());
             }
           // fall through
           case 75: break;
           case 25:
-            { token = new Tokens("MUL", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MUL, yycolumn, yyline, yytext());
+            { token = new Tokens("MUL", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MUL, yycolumn, yyline, yytext());
             }
           // fall through
           case 76: break;
           case 26:
-            { token = new Tokens("RES", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.RES, yycolumn, yyline, yytext());
+            { token = new Tokens("RES", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.RES, yycolumn, yyline, yytext());
             }
           // fall through
           case 77: break;
           case 27:
-            { token = new Tokens("SUM", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.SUM, yycolumn, yyline, yytext());
+            { token = new Tokens("SUM", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.SUM, yycolumn, yyline, yytext());
             }
           // fall through
           case 78: break;
           case 28:
-            { token = new Tokens("var", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.VAR, yycolumn, yyline, yytext());
+            { token = new Tokens("var", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.VAR, yycolumn, yyline, yytext());
             }
           // fall through
           case 79: break;
           case 29:
-            { token = new Tokens("char", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.CHAR, yycolumn, yyline, yytext());
+            { token = new Tokens("char", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.CHAR, yycolumn, yyline, yytext());
             }
           // fall through
           case 80: break;
           case 30:
-            { token = new Tokens("ejeX", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.EJEX, yycolumn, yyline, yytext());
+            { token = new Tokens("ejeX", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.EJEX, yycolumn, yyline, yytext());
             }
           // fall through
           case 81: break;
           case 31:
-            { token = new Tokens("ejeY", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.EJEY, yycolumn, yyline, yytext());
+            { token = new Tokens("ejeY", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.EJEY, yycolumn, yyline, yytext());
             }
           // fall through
           case 82: break;
           case 32:
-            { token = new Tokens("EXEC", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.EXEC, yycolumn, yyline, yytext());
+            { token = new Tokens("EXEC", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.EXEC, yycolumn, yyline, yytext());
             }
           // fall through
           case 83: break;
           case 33:
-            { token = new Tokens("Moda", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MODA, yycolumn, yyline, yytext());
+            { token = new Tokens("Moda", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MODA, yycolumn, yyline, yytext());
             }
           // fall through
           case 84: break;
           case 34:
-            { token = new Tokens("label", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.LABEL, yycolumn, yyline, yytext());
+            { token = new Tokens("label", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.LABEL, yycolumn, yyline, yytext());
             }
           // fall through
           case 85: break;
           case 35:
-            { token = new Tokens("Media", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MEDIA, yycolumn, yyline, yytext());
+            { token = new Tokens("Media", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MEDIA, yycolumn, yyline, yytext());
             }
           // fall through
           case 86: break;
           case 36:
-            { token = new Tokens("print", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.PRINT, yycolumn, yyline, yytext());
+            { token = new Tokens("print", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.PRINT, yycolumn, yyline, yytext());
             }
           // fall through
           case 87: break;
           case 37:
-            { token = new Tokens("column", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.COLUMN, yycolumn, yyline, yytext());
+            { token = new Tokens("column", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.COLUMN, yycolumn, yyline, yytext());
             }
           // fall through
           case 88: break;
           case 38:
-            { token = new Tokens("double", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.DOUBLE, yycolumn, yyline, yytext());
+            { token = new Tokens("double", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.DOUBLE, yycolumn, yyline, yytext());
             }
           // fall through
           case 89: break;
           case 39:
-            { token = new Tokens("titulo", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.TITULO, yycolumn, yyline, yytext());
+            { token = new Tokens("titulo", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.TITULO, yycolumn, yyline, yytext());
             }
           // fall through
           case 90: break;
           case 40:
-            { token = new Tokens("values", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.VALUES, yycolumn, yyline, yytext());
+            { token = new Tokens("values", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.VALUES, yycolumn, yyline, yytext());
             }
           // fall through
           case 91: break;
           case 41:
-            { token = new Tokens("console", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.CONSOLE, yycolumn, yyline, yytext());
+            { token = new Tokens("console", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.CONSOLE, yycolumn, yyline, yytext());
             }
           // fall through
           case 92: break;
           case 42:
-            { token = new Tokens("Mediana", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MEDIANA, yycolumn, yyline, yytext());
+            { token = new Tokens("Mediana", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MEDIANA, yycolumn, yyline, yytext());
             }
           // fall through
           case 93: break;
           case 43:
-            { token = new Tokens("PROGRAM", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.PROGRAM, yycolumn, yyline, yytext());
+            { token = new Tokens("PROGRAM", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.PROGRAM, yycolumn, yyline, yytext());
             }
           // fall through
           case 94: break;
           case 44:
-            { token = new Tokens("tituloX", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.TITULOX, yycolumn, yyline, yytext());
+            { token = new Tokens("tituloX", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.TITULOX, yycolumn, yyline, yytext());
             }
           // fall through
           case 95: break;
           case 45:
-            { token = new Tokens("tituloY", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.TITULOY, yycolumn, yyline, yytext());
+            { token = new Tokens("tituloY", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.TITULOY, yycolumn, yyline, yytext());
             }
           // fall through
           case 96: break;
           case 46:
-            { token = new Tokens("graphBar", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.GRAPHBAR, yycolumn, yyline, yytext());
+            { token = new Tokens("graphBar", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.GRAPHBAR, yycolumn, yyline, yytext());
             }
           // fall through
           case 97: break;
           case 47:
-            { token = new Tokens("graphPie", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.GRAPHPIE, yycolumn, yyline, yytext());
+            { token = new Tokens("graphPie", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.GRAPHPIE, yycolumn, yyline, yytext());
             }
           // fall through
           case 98: break;
           case 48:
-            { token = new Tokens("Varianza", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.VARIANZA, yycolumn, yyline, yytext());
+            { token = new Tokens("Varianza", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.VARIANZA, yycolumn, yyline, yytext());
             }
           // fall through
           case 99: break;
           case 49:
-            { token = new Tokens("graphLine", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.GRAPHLINE, yycolumn, yyline, yytext());
+            { token = new Tokens("graphLine", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.GRAPHLINE, yycolumn, yyline, yytext());
             }
           // fall through
           case 100: break;
           case 50:
-            { token = new Tokens("Histogram", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.HISTOGRAM, yycolumn, yyline, yytext());
+            { token = new Tokens("Histogram", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.HISTOGRAM, yycolumn, yyline, yytext());
             }
           // fall through
           case 101: break;
           case 51:
-            { token = new Tokens("END PROGRAM", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.END_PROGRAM, yycolumn, yyline, yytext());
+            { token = new Tokens("END PROGRAM", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.END_PROGRAM, yycolumn, yyline, yytext());
             }
           // fall through
           case 102: break;

@@ -50,43 +50,43 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 "]"       {token = new Tokens("]", "Simbolo", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.CORCHETE_C, yycolumn, yyline, yytext());}
 "-"       {token = new Tokens("-", "Simbolo", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.GUION, yycolumn, yyline, yytext());}
 //------> Instrucciones
-"PROGRAM"           { token = new Tokens("PROGRAM", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.PROGRAM, yycolumn, yyline, yytext());}
-"END PROGRAM"       {token = new Tokens("END PROGRAM", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.END_PROGRAM, yycolumn, yyline, yytext());}
-"console"           {token = new Tokens("console", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.CONSOLE, yycolumn, yyline, yytext());}
-"print"             {token = new Tokens("print", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.PRINT, yycolumn, yyline, yytext());}
-"end"               {token = new Tokens("end", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.END, yycolumn, yyline, yytext());}
-"char"              {token = new Tokens("char", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.CHAR, yycolumn, yyline, yytext());}
-"double"            {token = new Tokens("double", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.DOUBLE, yycolumn, yyline, yytext());}
-"var"               {token = new Tokens("var", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.VAR, yycolumn, yyline, yytext());}
-"arr"               {token = new Tokens("arr", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.ARR, yycolumn, yyline, yytext());}
-"SUM"               {token = new Tokens("SUM", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.SUM, yycolumn, yyline, yytext());}
-"RES"               {token = new Tokens("RES", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.RES, yycolumn, yyline, yytext());}
-"MUL"               {token = new Tokens("MUL", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MUL, yycolumn, yyline, yytext());}
-"DIV"               {token = new Tokens("DIV", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.DIV, yycolumn, yyline, yytext());}
-"MOD"               {token = new Tokens("MOD", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MOD, yycolumn, yyline, yytext());}
-"Media"             {token = new Tokens("Media", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MEDIA, yycolumn, yyline, yytext());}
-"Mediana"           {token = new Tokens("Mediana", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MEDIANA, yycolumn, yyline, yytext());}
-"Moda"              {token = new Tokens("Moda", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MODA, yycolumn, yyline, yytext());}
-"Varianza"          {token = new Tokens("Varianza", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.VARIANZA, yycolumn, yyline, yytext());}
-"Max"               {token = new Tokens("Max", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MAX, yycolumn, yyline, yytext());}
-"Min"               {token = new Tokens("Min", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MIN, yycolumn, yyline, yytext());}
-"column"            {token = new Tokens("column", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.COLUMN, yycolumn, yyline, yytext());}
+"PROGRAM"           { token = new Tokens("PROGRAM", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.PROGRAM, yycolumn, yyline, yytext());}
+"END PROGRAM"       {token = new Tokens("END PROGRAM", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.END_PROGRAM, yycolumn, yyline, yytext());}
+"console"           {token = new Tokens("console", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.CONSOLE, yycolumn, yyline, yytext());}
+"print"             {token = new Tokens("print", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.PRINT, yycolumn, yyline, yytext());}
+"end"               {token = new Tokens("end", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.END, yycolumn, yyline, yytext());}
+"char"              {token = new Tokens("char", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.CHAR, yycolumn, yyline, yytext());}
+"double"            {token = new Tokens("double", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.DOUBLE, yycolumn, yyline, yytext());}
+"var"               {token = new Tokens("var", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.VAR, yycolumn, yyline, yytext());}
+"arr"               {token = new Tokens("arr", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.ARR, yycolumn, yyline, yytext());}
+"SUM"               {token = new Tokens("SUM", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.SUM, yycolumn, yyline, yytext());}
+"RES"               {token = new Tokens("RES", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.RES, yycolumn, yyline, yytext());}
+"MUL"               {token = new Tokens("MUL", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MUL, yycolumn, yyline, yytext());}
+"DIV"               {token = new Tokens("DIV", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.DIV, yycolumn, yyline, yytext());}
+"MOD"               {token = new Tokens("MOD", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MOD, yycolumn, yyline, yytext());}
+"Media"             {token = new Tokens("Media", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MEDIA, yycolumn, yyline, yytext());}
+"Mediana"           {token = new Tokens("Mediana", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MEDIANA, yycolumn, yyline, yytext());}
+"Moda"              {token = new Tokens("Moda", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MODA, yycolumn, yyline, yytext());}
+"Varianza"          {token = new Tokens("Varianza", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.VARIANZA, yycolumn, yyline, yytext());}
+"Max"               {token = new Tokens("Max", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MAX, yycolumn, yyline, yytext());}
+"Min"               {token = new Tokens("Min", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.MIN, yycolumn, yyline, yytext());}
+"column"            {token = new Tokens("column", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.COLUMN, yycolumn, yyline, yytext());}
 //Grafica de barras
-"graphBar"          {token = new Tokens("graphBar", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.GRAPHBAR, yycolumn, yyline, yytext());}
-"titulo"            {token = new Tokens("titulo", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.TITULO, yycolumn, yyline, yytext());}
-"ejeX"              {token = new Tokens("ejeX", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.EJEX, yycolumn, yyline, yytext());}
-"ejeY"              {token = new Tokens("ejeY", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.EJEY, yycolumn, yyline, yytext());}
-"tituloX"           {token = new Tokens("tituloX", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.TITULOX, yycolumn, yyline, yytext());}
-"tituloY"           {token = new Tokens("tituloY", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.TITULOY, yycolumn, yyline, yytext());}
-"EXEC"              {token = new Tokens("EXEC", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.EXEC, yycolumn, yyline, yytext());}
+"graphBar"          {token = new Tokens("graphBar", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.GRAPHBAR, yycolumn, yyline, yytext());}
+"titulo"            {token = new Tokens("titulo", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.TITULO, yycolumn, yyline, yytext());}
+"ejeX"              {token = new Tokens("ejeX", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.EJEX, yycolumn, yyline, yytext());}
+"ejeY"              {token = new Tokens("ejeY", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.EJEY, yycolumn, yyline, yytext());}
+"tituloX"           {token = new Tokens("tituloX", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.TITULOX, yycolumn, yyline, yytext());}
+"tituloY"           {token = new Tokens("tituloY", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.TITULOY, yycolumn, yyline, yytext());}
+"EXEC"              {token = new Tokens("EXEC", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.EXEC, yycolumn, yyline, yytext());}
 //Grafica de Pie
-"graphPie"          {token = new Tokens("graphPie", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.GRAPHPIE, yycolumn, yyline, yytext());}
-"label"             {token = new Tokens("label", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.LABEL, yycolumn, yyline, yytext());}
-"values"            {token = new Tokens("values", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.VALUES, yycolumn, yyline, yytext());}
+"graphPie"          {token = new Tokens("graphPie", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.GRAPHPIE, yycolumn, yyline, yytext());}
+"label"             {token = new Tokens("label", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.LABEL, yycolumn, yyline, yytext());}
+"values"            {token = new Tokens("values", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.VALUES, yycolumn, yyline, yytext());}
 //Grafica de Linea
-"graphLine"         {token = new Tokens("graphLine", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.GRAPHLINE, yycolumn, yyline, yytext());}
+"graphLine"         {token = new Tokens("graphLine", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.GRAPHLINE, yycolumn, yyline, yytext());}
 //Grafica de Histograma
-"Histogram"         {token = new Tokens("Histogram", "Instruccion", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.HISTOGRAM, yycolumn, yyline, yytext());}
+"Histogram"         {token = new Tokens("Histogram", "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.HISTOGRAM, yycolumn, yyline, yytext());}
 
 
 //------> Operadores
@@ -96,7 +96,7 @@ comentario = ("<!"([^><]|[^!]">"|"!"[^>]|[^<]"!"|"<"[^!])*"!>")|(\!.*)
 {espacio}           {}
 {entero}            {token = new Tokens(yytext(), "Int", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.ENTERO, yycolumn, yyline, yytext()); }
 {numero_decimal}    {token = new Tokens(yytext(), "Double", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.NUMERODECIMAL, yycolumn, yyline, yytext()); }
-{id}                {token = new Tokens(yytext(), "Id", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.ID, yycolumn, yyline, yytext()); }
+{id}                {token = new Tokens(yytext(), "String", yyline, yycolumn); Funciones.Instruccion.agregarTokens(token); return new Symbol(sym.ID, yycolumn, yyline, yytext()); }
 {comentario}        {}
 
 

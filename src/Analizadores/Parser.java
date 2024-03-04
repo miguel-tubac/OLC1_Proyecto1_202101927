@@ -9,6 +9,7 @@ import java_cup.runtime.*;
 import java.util.LinkedList;
 import InterfasGrafica.FrameInicio;
 import Funciones.Errores;
+import Funciones.Simbolos;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -994,7 +995,8 @@ public class Parser extends java_cup.runtime.lr_parser {
 
 
     public static String resultado = "";
-    Errores error; 
+    Errores error;
+    Simbolos sim;
 
     public void syntax_error(Symbol s)
     {
@@ -1016,7 +1018,7 @@ public class Parser extends java_cup.runtime.lr_parser {
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})
 class CUP$Parser$actions {
 
-  
+ 
   private final Parser parser;
 
   /** Constructor */
@@ -1221,7 +1223,11 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		 Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+		 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("variables",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1236,7 +1242,11 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		 Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+		 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable string", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("variables",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1251,7 +1261,11 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
-		 Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+		 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("variables",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-12)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1266,7 +1280,11 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
-		 Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+		 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("variables",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-12)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1281,7 +1299,11 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
-		 Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+		 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("variables",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-12)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1296,7 +1318,11 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
-		 Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+		 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("variables",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-12)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1311,7 +1337,11 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
-		 Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+		 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("variables",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-12)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1326,7 +1356,11 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
 		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
-		 Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+		 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("variables",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-14)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1341,7 +1375,11 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
 		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
-		 Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+		 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("variables",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-14)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1356,7 +1394,11 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
 		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
-		 Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+		 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("variables",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-14)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1371,7 +1413,11 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
 		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
-		 Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+		 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("variables",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-14)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1386,7 +1432,11 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
 		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
-		 Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+		 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("variables",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-14)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1401,7 +1451,11 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
 		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
-		 Funciones.Instruccion.agregarValor(var.toString(), val.toString()); 
+		 
+                                Funciones.Instruccion.agregarValor(var.toString(), val.toString());
+                                sim = new Simbolos(var.toString(),"Variable double", val.toString(), valright, valleft);
+                                Funciones.Instruccion.agregarSimbolo(sim);
+                            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("variables",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-14)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1937,6 +1991,8 @@ class CUP$Parser$actions {
 		Object lista = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		
         Funciones.Instruccion.agregarValor(var.toString(), (LinkedList<String>) lista);
+        sim = new Simbolos(var.toString(),"Arreglo double", lista.toString(), listaright, listaleft);
+        Funciones.Instruccion.agregarSimbolo(sim);
     
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("arreglos",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1954,6 +2010,8 @@ class CUP$Parser$actions {
 		Object lista = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		 
         Funciones.Instruccion.agregarValor(var.toString(), (LinkedList<String>) lista);
+        sim = new Simbolos(var.toString(),"Arreglo string", lista.toString(), listaright, listaleft);
+        Funciones.Instruccion.agregarSimbolo(sim);
     
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("arreglos",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-13)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }

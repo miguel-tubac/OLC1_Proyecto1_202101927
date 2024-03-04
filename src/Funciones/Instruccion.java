@@ -18,6 +18,9 @@ public class Instruccion {
     // Lista donde se elamcenaran los tokens
     public static LinkedList<Object> listaErrores = new LinkedList<>();
     
+    // Lista donde se elamcenaran los simbolos para la tabla final
+    public static LinkedList<Object> simbolos = new LinkedList<>();
+    
     //Metodo para agregar el texto a consola
     public static void agregarTexto(String texto){
         consola += texto;
@@ -79,5 +82,19 @@ public class Instruccion {
     // Método para reiniciar los Errores
     public static void reiniciarErrores() {
         listaErrores.clear();
+    }
+    
+    // Método para agregar los simbolos
+    public static void agregarSimbolo(Object valor) {
+        if ( valor != null) {
+            simbolos.add(valor);
+        } else {
+            System.err.println("Error: No se puede agregar un valor nulo a la lista simbolos.");
+        }
+    }
+    
+    // Método para reiniciar los tokens
+    public static void reiniciarSimbolos() {
+        simbolos.clear();
     }
 }
