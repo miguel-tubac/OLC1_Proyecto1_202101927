@@ -25,38 +25,38 @@ PROGRAM
 	var:char[]:: gbt <- "Datos" end;
 	graphBar(
 		!grafica 1
-		tituloX::char[] = “Actividades” end;
+		tituloX::char[] = "Actividades"end;
 		tituloY::char[] = gbt end;
-		titulo::char[] = “Estudiantes” end;
-		ejeX::char[] = [“1 Parcial”, “2 parcial”, “Final”] end;
+		titulo::char[] = "Estudiantes" end;
+		ejeX::char[] = ["1 Parcial", "2 parcial", "Final"] end;
 		ejeY::double = [gb1, 30, 70] end;
-		EXEC grapBar end;
+		EXEC graphBar end;
 	) end;
 	
 	graphPie(
 		<! FELICIDADES
 		La de pie es facil !>
 	
-		label::char[] = [“Uno”, “Dos”, “Tres”] end;
-		titulo::char[] = “Ejemplo Gráfica de Pie” end;
+		label::char[] = ["Uno", "Dos", "Tres"] end;
+		titulo::char[] = "Ejemplo Gráfica de Pie" end;
 		values::double = [50, 30, 20] end;
-		EXEC grapPie end;
+		EXEC graphPie end;
 	) end;
 	
 	
 	graphLine(
 	!testing de variables en graficas
-		titulo::char[] = “Gráfica de Línea” end;
+		titulo::char[] = "Gráfica de Línea" end;
 		ejeX::char[] = @labels end;
 		ejeY::double = @notas end;
-		tituloX::char[] = “Actividades” end;
-		tituloY::char[] = “Notas” end;
-		EXEC grapLine end;
+		tituloX::char[] = "Actividades" end;
+		tituloY::char[] = "Notas1" end;
+		EXEC graphLine end;
 	) end;
 	
 	Histogram(
 		titulo::char[] = titulo1 end;
-		values::char[] = [2,2,2,5,5,7,8] end;
+		values::double = [2,2,2,5,5,7,8] end;
 		EXEC Histogram end;
 	) end;
 	

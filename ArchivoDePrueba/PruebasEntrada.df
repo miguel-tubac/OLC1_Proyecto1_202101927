@@ -1,0 +1,146 @@
+PROGRAM
+	console::print = "Hola" end;
+	var:double:: numero <- 2.5 end; 
+	var:char[]::grafHisto <-"Ejomplo de Histogram" end;
+	Histogram(
+		titulo::char[] = "Hola" end;
+		values::double = [2,2,2,5,5,7,8] end;
+		titulo::char[] = grafHisto end;
+		EXEC Histogram end;
+	) end;
+
+	graphLine(
+		titulo::char[] = "Grafica de Linea" end;
+		ejeX::char[] = ["1 Parcial", "2Parcial", "Final"] end;
+		ejeY::double = [50,30,70] end;
+		tituloX::char[] = "Actividades" end;
+		tituloY::char[] = "Notas" end;
+		EXEC graphLine end;
+	)end;
+	var:char[]::actividad <-"Actividades1" end;
+	var:char[]::notas <-"Notas1" end;
+	var:char[]::titulos <-"Graficas de Linea1" end;
+	graphLine(
+		titulo::char[] = titulos end;
+		ejeX::char[] = ["4 Parcial", "5 Parcial", "6 Final"] end;
+		ejeY::double = [100,30,20] end;
+		tituloX::char[] = actividad end;
+		tituloY::char[] = notas end;
+		EXEC graphLine end;
+	)end;
+
+	graphPie(
+		label::char[] = ["Uno", "Dos", "Tres"] end;
+		values::double = [50, 30, 20] end;
+		titulo::char[] = "Ejamplo Grafica de Pie" end;
+		EXEC graphPie end;
+	)end;
+	var:char[]::cadena_Ejem <-"Alejandra Eli" end;
+	graphPie(
+		titulo::char[] = "Ejemplo Miguel" end;
+		label::char[] = ["Miguel", "Alejandra"] end;
+		values::double = [80, 20] end;
+		titulo::char[] = cadena_Ejem  end;
+		EXEC graphPie end;
+	)end;
+
+	graphBar(
+		titulo::char[] = "Estudiante1" end;
+		ejeX::char[] = ["1 Parcial", "2Parcial", "Final"] end;
+		ejeY::double = [50,30,70] end;
+		tituloX::char[] = "Actividades" end;
+		tituloY::char[] = "Notas" end;
+		EXEC graphBar end;
+	)end;
+	graphBar(
+		titulo::char[] = "Estudiante" end;
+		ejeX::char[] = ["1 Parcial", "2Parcial", "Final"] end;
+		ejeY::double = [50,30,70] end;
+		tituloX::char[] = "Actividades" end;
+		tituloY::char[] = "Notas" end;
+		
+	)end;
+	var:char[]::cadena1 <-"Miguel111" end;
+	var:char[]::cadena2 <-"Miguel222" end;
+	var:char[]::cadena3 <-"Miguel333" end;
+	graphBar(
+		ejeX::char[] = ["1 Parcial", "2Parcial", "Final"] end;
+		ejeY::double = [50,30,70] end;
+		tituloX::char[] = cadena2 end;
+		tituloY::char[] = cadena3 end;
+		titulo::char[] = cadena1 end;
+		EXEC graphBar end;
+	)end;
+	graphBar(
+		titulo::char[] = "Estudiante3" end;
+		titulo::char[] = "Estudiante4" end;
+		ejeX::char[] = ["1 Parcial", "2Parcial", "Final"] end;
+		ejeY::double = [50,30,70] end;
+		tituloX::char[] = "Actividades" end;
+		tituloY::char[] = "Notas" end;
+		ejeY::double = [10,40,50] end;
+		EXEC graphBar end;
+	)end;
+	console::column = titulossa -> [1,2,3,4,5] end;
+
+	console::column = titulos -> [1,2,3,4,5] end;
+	arr:double::@darray3 <- [6,7,8,9] end;
+	var:char[]::cadena <-"Miguel Prueba" end;
+	console::column = cadena  -> @darray3 end;
+
+	!Preuba de Imprecion 1:
+	var:double:: numero <- 2.5 end;
+	var:double:: numero2 <- 10 end;
+	console::print = numero," ", numero2, " Hola " end; 
+	console:: print = "Miguel" end;
+	
+	!Prueba de imprecion 2
+	arr:double::@darray2 <- [3,5,1,5,2,4] end;
+	console:: print = 1," , ",2," , ", SUM(3,5)," , ",Media(@darray2) end;
+
+	var:double:: numero <- 2.5 end;
+	console::print = numero end; 
+	arr:double::@darray2 <- [6.0,7,8,9] end;
+	
+	var:char[]::cadena <-"Miguel" end;
+	console::print = cadena end; 
+	arr:char[]::@carray <- [cadena, "ad", "asd"] end;
+
+	var:double::suma <- MUL(SUM(7,3),RES(7,DIV(25,5))) end;
+	console::print = suma end; 
+	arr:double::@darray2 <- [SUM(7,3),DIV(25,5),MOD(5,4),MUL(2,4),RES(4,2)] end;
+
+	! Esta es la forma numero = 1
+	var:double:: med1 <- Media([SUM(1,2),5,1,Media([5,5]),2,Media([4,4])]) end;
+	console::print = med1 end; 
+
+	! Esta es la forma numero = 2
+	arr:double::@darray2 <- [3,5,1,5,2,4] end;
+	var:double:: numero2 <- Media(@darray2) end;
+	console::print = numero2 end; 
+
+	! Esta es la forma numero = 3
+	arr:double::@data <- [3,3,3,3] end;
+	arr:double::@data2 <- [5,5,5] end;
+	arr:double::@arreglo <- [Media( @data),Media(@data2)] end;
+
+	! Esta es la forma numero = 4
+	var:double:: numero <- DIV(Media([Media([5,5]),5]) , 5)end;
+	console::print = numero end;
+asdf
+	! Esta es la forma de Prueba de los calculos Estadisticos:
+	arr:double::@data <- [3,5,1,5,2,4] end;
+	
+	var:double:: med1 <- Media(@data)  end;
+	console::print = med1 end; 
+	var:double:: med1 <- Mediana(@data)  end;
+	console::print = med1 end; 
+	var:double:: med1 <- Moda(@data)  end;
+	console::print = med1 end;
+	var:double:: med1 <- Varianza(@data)  end;
+	console::print = med1 end;
+	var:double:: med1 <- Max(@data)  end;
+	console::print = med1 end;
+	var:double:: med1 <- Min(@data)  end;
+	console::print = med1 end; 
+END PROGRAM
