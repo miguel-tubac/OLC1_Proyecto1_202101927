@@ -1,0 +1,110 @@
+Terminales = {ENTERO, NUMERODECIMAL, PROGRAM, END_PROGRAM, CONSOLE, PRINT, END,
+		ID, DOSPUNTOS, DOBLEDOSPUNTOS, COMA, PUNTOYCOMA, IGUAL, PARENTESIS_A, PARENTESIS_C,
+		MENOR, MAYOR, GUION, CORCHETE_A, CORCHETE_C, CHAR, DOUBLE, VAR, ARR, SUM, RES, MUL, DIV, MOD,
+		MEDIA, MEDIANA, MODA, VARIANZA, MAX, MIN, COLUMN, GRAPHBAR, TITULO, EJEX, EJEY, TITULOX, TITULOY, 
+		EXEC, GRAPHPIE, LABEL, VALUES, GRAPHLINE, HISTOGRAM}
+
+No Terminales = {<inicio>, <imprimir_consola>, <siguiente>, <lista_instrucciones>, <expresion>, <instruccion>,
+		<variables>, <arreglos>, <listaelemen>, <operacionsum>, <operacionres>, <operacionmul>, <operaciondiv>, <operacionmod>,
+		<operacionmedia>, <operacionmediana>, <operacionmoda>, <operacionvarianza>, <operacionmax>, <operacionmin>,
+		<imprimir_arreglo>, <graficas>, <grafica_barras>, <repeticion_parametros>, <grafica_pie>, <repeticion_parametros_pie>,
+		<grafica_line>, <repeticion_parametros_line>, <grafica_histogram>, <repeticion_parametros_histogram>}
+
+Simbolo Inicial = <inicio>
+
+Producciones: 
+	<inicio> -> PROGRAM <lista_instrucciones> END_PROGRAM
+			   | PROGRAM END_PROGRAM
+
+	<lista_instrucciones> -> <lista_instrucciones> <instruccion>
+							 | <instruccion>
+
+	<instruccion> -> <imprimir_consola>
+					 | <variables>
+					 | <arreglos>
+					 | <graficas>
+
+	<imprimir_consola> -> CONSOLE DOBLEDOSPUNTOS PRINT IGUAL <siguiente> END PUNTOYCOMA
+						  | CONSOLE DOBLEDOSPUNTOS COLUMN IGUAL <expresion> GUION MAYOR <imprimir_arreglo> END PUNTOYCOMA
+
+	<imprimir_arreglo> -> CORCHETE_A <listaelemen> CORCHETE_C
+						   | <expresion>
+
+	<siguiente> -> <siguiente> COMA <expresion>
+					| <expresion>
+
+	<variables> -> VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID MENOR GUION <expresion> END PUNTOYCOMA
+					| VAR DOSPUNTOS CHAR CORCHETE_A CORCHETE_C DOBLEDOSPUNTOS ID MENOR GUION ID END PUNTOYCOMA
+					| VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID MENOR GUION <operacion> END PUNTOYCOMA
+					| VAR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID MENOR GUION <operacionestadistica> END PUNTOYCOMA
+
+	<operacion> -> SUM PARENTESIS_A <operacion> PARENTESIS_C
+					| RES PARENTESIS_A <operacion> PARENTESIS_C
+					| MUL PARENTESIS_A <operacion> PARENTESIS_C
+					| DIV PARENTESIS_A <operacion> PARENTESIS_C
+					| MOD PARENTESIS_A <operacion> PARENTESIS_C
+					| <expresion>
+
+	<operacionestadistica> -> MEDIA PARENTESIS_A CORCHETE_A <listaelemen> CORCHETE_C PARENTESIS_C
+								| MEDIANA PARENTESIS_A CORCHETE_A <listaelemen> CORCHETE_C PARENTESIS_C
+								| MODA PARENTESIS_A CORCHETE_A <listaelemen> CORCHETE_C PARENTESIS_C
+								| VARIANZA PARENTESIS_A CORCHETE_A <listaelemen> CORCHETE_C PARENTESIS_C
+								| MAX PARENTESIS_A CORCHETE_A <listaelemen> CORCHETE_C PARENTESIS_C
+								| MIN PARENTESIS_A CORCHETE_A <listaelemen> CORCHETE_C PARENTESIS_C
+
+	<arreglos> -> ARR DOSPUNTOS DOUBLE DOBLEDOSPUNTOS ID MENOR GUION CORCHETE_A <listaelemen> CORCHETE_C END PUNTOYCOMA
+					| ARR DOSPUNTOS CHAR CORCHETE_A CORCHETE_C DOBLEDOSPUNTOS ID MENOR GUION CORCHETE_A <listaelemen> CORCHETE_C END PUNTOYCOMA
+
+	<listaelemen> -> <listaelemen> COMA <expresion>
+					   | <expresion>
+
+	<graficas> -> GRAPHBAR PARENTESIS_A <grafica_barras> GRAPHBAR END PUNTOYCOMA PARENTESIS_C END PUNTOYCOMA
+					| GRAPHPIE PARENTESIS_A <grafica_pie> GRAPHPIE END PUNTOYCOMA PARENTESIS_C END PUNTOYCOMA
+					| GRAPHLINE PARENTESIS_A <grafica_line> GRAPHLINE END PUNTOYCOMA PARENTESIS_C END PUNTOYCOMA
+					| HISTOGRAM PARENTESIS_A <grafica_histogram> HISTOGRAM END PUNTOYCOMA PARENTESIS_C END PUNTOYCOMA
+
+	<grafica_barras> -> <grafica_barras> <repeticion_parametros>
+						  | <repeticion_parametros>
+
+	<grafica_pie> -> <grafica_pie> <repeticion_parametros_pie>
+					   | <repeticion_parametros_pie>
+
+	<grafica_line> -> <grafica_line> <repeticion_parametros_line>
+						| <repeticion_parametros_line>
+
+	<grafica_histogram> -> <grafica_histogram> <repeticion_parametros_histogram>
+							 | <repeticion_parametros_histogram>
+
+	<repeticion_parametros> -> TITULO DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL <expresion> END PUNTOYCOMA
+								 | EJEX DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A <listaelemen> CORCHETE_C END PUNTOYCOMA
+								 | EJEY DOBLEDOSPUNTOS DOUBLE IGUAL CORCHETE_A <listaelemen> CORCHETE_C END PUNTOYCOMA
+								 | TITULOX DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL <expresion> END PUNTOYCOMA
+								 | TITULOY DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL <expresion> END PUNTOYCOMA
+
+	<repeticion_parametros_pie> -> LABEL DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A <listaelemen> CORCHETE_C END PUNTOYCOMA
+									  | VALUES DOBLEDOSPUNTOS DOUBLE IGUAL CORCHETE_A <listaelemen> CORCHETE_C END PUNTOYCOMA
+									  | TITULO DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL <expresion> END PUNTOYCOMA
+
+	<repeticion_parametros_line> -> LABEL DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A <listaelemen> CORCHETE_C END PUNTOYCOMA
+									   | VALUES DOBLEDOSPUNTOS DOUBLE IGUAL CORCHETE_A <listaelemen> CORCHETE_C END PUNTOYCOMA
+									   | TITULO DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL <expresion> END PUNTOYCOMA
+
+	<repeticion_parametros_histogram> -> LABEL DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A <listaelemen> CORCHETE_C END PUNTOYCOMA
+											| VALUES DOBLEDOSPUNTOS DOUBLE IGUAL CORCHETE_A <listaelemen> CORCHETE_C END PUNTOYCOMA
+											| TITULO DOBLEDOSPUNTOS CHAR CORCHETE_A CORCHETE_C IGUAL <expresion> END PUNTOYCOMA
+
+	<expresion> -> <termino> <expresion_prima>
+
+	<expresion_prima> -> PLUS <termino> <expresion_prima>
+						  | MINUS <termino> <expresion_prima>
+						  | EPSILON
+
+	<termino> -> <factor> <termino_prima>
+
+	<termino_prima> -> TIMES <factor> <termino_prima>
+						| DIVIDE <factor> <termino_prima>
+						| EPSILON
+
+	<factor> -> LPAREN <expresion> RPAREN
+				 | ID
+				 | NUMERO
